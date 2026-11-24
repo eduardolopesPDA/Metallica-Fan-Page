@@ -1,0 +1,43 @@
+---
+import Album from '../layouts/Album.astro';
+import { albums } from '../data/albums.js';
+import '../styles/themes/black.css';
+const album = albums['black-album'];
+const fonts = 'https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;700&display=swap';
+---
+<Album
+  album={album}
+  fonts={fonts}
+  hint="mova a lanterna · clique para um pulso de luz"
+  tracklist={{ title: 'Faixas' }}
+>
+  <div slot="overlays" id="darkness" aria-hidden="true"></div>
+  <button slot="tools" class="tool-btn lights" type="button" aria-pressed="false"><span class="lights__long">Acender as luzes</span><span class="lights__short">Luz</span></button>
+
+  <Fragment slot="loader">
+    <div class="ld-line" aria-hidden="true"></div>
+  </Fragment>
+
+  <section slot="special" class="special" aria-labelledby="mixer-title">
+    <div class="special__head">
+      <p class="special__kicker">Produção · Bob Rock</p>
+      <h2 class="special__title" id="mixer-title">A mesa de som</h2>
+      <p class="special__text">O disco foi construído camada por camada, com cada instrumento no seu espaço. Mexa nos faders e veja cada canal acender.</p>
+    </div>
+    <div class="mixer">
+      {album.members.map((mb, i) => (
+        <div class="strip">
+          <div class="vu" aria-hidden="true">{Array.from({ length: 14 }).map(() => <i></i>)}</div>
+          <input type="range" min="0" max="100" value={[78, 90, 64, 70][i]} id={`fader-${mb.id}`} aria-label={`Volume de ${mb.first} ${mb.last}`} />
+          <label for={`fader-${mb.id}`}>{mb.last}</label>
+        </div>
+      ))}
+    </div>
+  </section>
+</Album>
+
+<script>
+  import { boot } from '../scripts/core/page.js';
+  import theme from '../scripts/themes/black.js';
+  boot(theme);
+</script>
