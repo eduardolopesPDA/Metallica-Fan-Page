@@ -1,0 +1,48 @@
+---
+/* Seção de um integrante: mesmo molde em todos os álbuns.
+   O instrumento é um <svg> vazio que js/core/instruments.js preenche. */
+const { member: mb, index, total, reverse, note } = Astro.props;
+const ins = mb.instrument;
+const nn = String(index + 1).padStart(2, '0');
+const viewBox = ins.type === 'drums' ? '0 0 460 440' : '0 0 300 640';
+---
+<section class:list={['member', { 'member--reverse': reverse }]} id={mb.id} data-member={mb.id}>
+  <span class="member__ghost" aria-hidden="true">{nn}</span>
+  <div class="member__visual">
+    <div class="halo" aria-hidden="true"></div>
+    <div class="puppet">
+      <svg
+        class={`instrument instrument--${ins.type}`}
+        data-instrument={ins.type}
+        data-finish={ins.finish}
+        data-guard={ins.guard}
+        data-strings={ins.strings}
+        data-mark={ins.mark}
+        viewBox={viewBox}
+        aria-hidden="true"
+      ></svg>
+    </div>
+  </div>
+
+  <div class="member__content">
+    <p class="member__index"><span>{nn}</span> / 04 <em>{mb.role}</em></p>
+    {mb.stamp && <span class="member__stamp" aria-hidden="true">{mb.stamp}</span>}
+    <h2 class="member__name"><span data-split>{mb.first}</span><span data-split class="outline">{mb.last}</span></h2>
+    <p class="member__lead">{mb.lead}</p>
+    <p class="member__text" set:html={mb.text} />
+
+    <dl class="facts">
+      <div><dt>Nascimento</dt><dd>{mb.born}</dd></div>
+      <div><dt>Origem</dt><dd>{mb.from}</dd></div>
+      <div><dt>Na banda</dt><dd>{mb.since}</dd></div>
+      <div><dt>Destaque</dt><dd>{mb.highlight}</dd></div>
+    </dl>
+
+    <div class="meter" data-value={mb.credits}>
+      <p class="meter__label">Créditos de composição no álbum <strong>{mb.credits}/{total}</strong></p>
+      <div class="meter__cells" style={`--cells:${total}`}>{Array.from({ length: total }).map(() => <i></i>)}</div>
+    </div>
+
+    {note && <p class="memorial">{note}</p>}
+  </div>
+</section>
