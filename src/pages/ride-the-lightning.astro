@@ -1,0 +1,46 @@
+---
+import Album from '../layouts/Album.astro';
+import { albums } from '../data/albums.js';
+import '../styles/themes/rtl.css';
+const album = albums['ride-the-lightning'];
+const fonts = 'https://fonts.googleapis.com/css2?family=Metal+Mania&family=Oswald:wght@300;400;600;700&family=Special+Elite&display=swap';
+---
+<Album
+  album={album}
+  fonts={fonts}
+  hint="ou clique em qualquer lugar para invocar um raio"
+  notes={{ cliff: '✝ 1962 — 1986 · Para sempre na formação' }}
+  tracklist={{ title: 'Lado A <span>/</span> Lado B' }}
+>
+  <Fragment slot="bg">
+    <div class="sky-glow"></div>
+    <div class="cloud cloud--1"></div><div class="cloud cloud--2"></div><div class="cloud cloud--3"></div>
+  </Fragment>
+  <div slot="overlays" id="flash" aria-hidden="true"></div>
+
+  <Fragment slot="loader">
+    <svg class="loader__bolt" viewBox="0 0 64 120" aria-hidden="true"><path d="M38 2 L6 68 H30 L22 118 L58 44 H34 Z" /></svg>
+    <p class="loader__label">Carregando a cadeira</p>
+    <p class="loader__count"><span id="volts">0</span> V</p>
+    <div class="loader__bar"><span></span></div>
+  </Fragment>
+
+  <section slot="special" class="special" aria-labelledby="charge-title">
+    <div class="special__head">
+      <p class="special__kicker">A cadeira elétrica</p>
+      <h2 class="special__title" id="charge-title">Segure para carregar</h2>
+      <p class="special__text">O título do disco fala de uma execução na cadeira elétrica. Segure o medidor até 100% e solte a tempestade inteira de uma vez.</p>
+    </div>
+    <div class="charge no-fx" role="button" tabindex="0" aria-label="Segure para carregar a tempestade">
+      <svg viewBox="0 0 300 300" aria-hidden="true"><circle class="charge__track" cx="150" cy="150" r="120" /><circle class="charge__fill" cx="150" cy="150" r="120" /></svg>
+      <span class="charge__pct">0%</span>
+      <span class="charge__hint">segure</span>
+    </div>
+  </section>
+</Album>
+
+<script>
+  import { boot } from '../scripts/core/page.js';
+  import theme from '../scripts/themes/rtl.js';
+  boot(theme);
+</script>
