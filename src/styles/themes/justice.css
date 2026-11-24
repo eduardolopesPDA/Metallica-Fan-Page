@@ -1,0 +1,107 @@
+/* ...AND JUSTICE FOR ALL — concreto, bronze oxidado, papel de processo */
+[data-theme="justice"] {
+  --bg: #1b1e1d; --bg-2: #e8e3d4; --ink: #d8d4c8; --ink-strong: #f2efe6; --muted: #8f948f;
+  --accent: #7fb39d; --accent-2: #a3302a; --line: rgba(216, 212, 200, .18);
+  --font-display: "Cinzel", Georgia, serif; --font-body: "IBM Plex Mono", ui-monospace, monospace; --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  font-size: 15px;
+}
+[data-theme="justice"] .bg {
+  background:
+    radial-gradient(70% 60% at 50% 30%, rgba(127, 179, 157, .1), transparent 70%),
+    radial-gradient(120% 100% at 50% 50%, transparent 40%, rgba(0, 0, 0, .6)),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='c' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.035' numOctaves='5' seed='9' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .52 0 0 0 0 .5 0 0 0 .35 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)'/%3E%3C/svg%3E"),
+    #1b1e1d;
+}
+[data-theme="justice"] .grain { opacity: .07; }
+[data-theme="justice"] .cursor { border-radius: 0; width: 10px; height: 10px; margin: -5px 0 0 -5px; background: var(--accent); }
+
+/* loader: martelo, balança e a rachadura que parte a tela */
+[data-theme="justice"] .loader { background: transparent; overflow: hidden; }
+[data-theme="justice"] .ld-half { position: absolute; top: 0; bottom: 0; width: 51%; background: #141716 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='c' x='0' y='0' width='100%25' height='100%25'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.035' numOctaves='5' seed='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .52 0 0 0 0 .5 0 0 0 .3 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23c)'/%3E%3C/svg%3E"); }
+[data-theme="justice"] .ld-half--l { left: 0; clip-path: polygon(0 0, 100% 0, 96% 18%, 100% 34%, 94% 52%, 99% 70%, 95% 86%, 100% 100%, 0 100%); }
+[data-theme="justice"] .ld-half--r { right: 0; clip-path: polygon(4% 0, 100% 0, 100% 100%, 4% 100%, 0 86%, 4% 70%, -1% 52%, 6% 34%, 0 18%); }
+[data-theme="justice"] .ld-center { position: relative; z-index: 2; display: grid; justify-items: center; gap: 14px; }
+[data-theme="justice"] .ld-center svg { width: min(340px, 80vw); overflow: visible; }
+[data-theme="justice"] .ld-crack { position: absolute; inset: 0; z-index: 3; width: 100%; height: 100%; pointer-events: none; }
+[data-theme="justice"] .ld-crack path { fill: none; stroke: #000; stroke-width: 3; }
+[data-theme="justice"] .loader__label { color: var(--muted); }
+
+[data-theme="justice"] .nav { background: linear-gradient(180deg, rgba(20, 23, 22, .9), transparent); }
+[data-theme="justice"] .nav__logo { letter-spacing: .2em; font-size: 20px; font-weight: 700; }
+[data-theme="justice"] .sound, [data-theme="justice"] .tool-btn { border-radius: 0; font-family: var(--font-mono); }
+
+/* hero: gravado em pedra */
+[data-theme="justice"] .hero__title { text-transform: uppercase; }
+[data-theme="justice"] .hero__line { font-weight: 700; letter-spacing: .14em; color: #cfcac0; text-shadow: 0 1px 0 rgba(255, 255, 255, .22), 0 -2px 0 rgba(0, 0, 0, .85), 0 0 40px rgba(127, 179, 157, .15); }
+[data-theme="justice"] .hero__line--big { font-size: clamp(54px, 11vw, 170px); font-weight: 900; letter-spacing: .08em; }
+[data-theme="justice"] .hero__line:first-child { font-size: clamp(26px, 4.4vw, 64px); }
+[data-theme="justice"] .hero-scale { position: absolute; left: 50%; top: 52%; width: min(560px, 90vw); transform: translate(-50%, -50%); opacity: .5; overflow: visible; }
+[data-theme="justice"] .hero-scale * { stroke: #7fb39d; fill: none; stroke-width: 2; }
+[data-theme="justice"] .hero-scale .solid { fill: rgba(127, 179, 157, .14); }
+[data-theme="justice"] .btn { border-radius: 0; font-family: var(--font-mono); }
+[data-theme="justice"] .marquee__track span { font-family: var(--font-mono); text-transform: uppercase; font-size: clamp(16px, 2vw, 24px); letter-spacing: .2em; }
+[data-theme="justice"] .marquee__track i { width: 2px; height: 22px; }
+
+/* integrantes: ficha de processo em papel */
+[data-theme="justice"] main { counter-reset: ficha; }
+[data-theme="justice"] .member { counter-increment: ficha; }
+[data-theme="justice"] .member__ghost { font-weight: 900; -webkit-text-stroke-color: rgba(216, 212, 200, .08); }
+[data-theme="justice"] .member__content {
+  --ink: #2b2a26; --ink-strong: #111; --muted: #5c5a52; --line: rgba(0, 0, 0, .16); --accent: #3f6e5c;
+  background: var(--bg-2); color: var(--ink); padding: 54px clamp(24px, 3vw, 40px) 32px; box-shadow: 0 20px 40px rgba(0, 0, 0, .45);
+}
+[data-theme="justice"] .member__content::before {
+  content: "FICHA Nº 0" counter(ficha) " · PROCESSO 1988"; position: absolute; left: 0; right: 0; top: 0; padding: 10px clamp(24px, 3vw, 40px);
+  background: #2b2a26; color: #e8e3d4; font-size: 11px; letter-spacing: .25em;
+}
+[data-theme="justice"] .member__content::after {
+  content: "EM JULGAMENTO"; position: absolute; right: 18px; top: 46px; padding: 4px 10px; border: 2px solid var(--accent-2); color: var(--accent-2);
+  font-size: 11px; font-weight: 600; letter-spacing: .2em; transform: rotate(-6deg); opacity: .85;
+}
+[data-theme="justice"] .member__name { font-weight: 700; letter-spacing: .06em; }
+[data-theme="justice"] .member__name > span { font-size: clamp(44px, 6vw, 96px); }
+[data-theme="justice"] .member__name .outline { -webkit-text-stroke: 1.5px #111; }
+[data-theme="justice"] .member__lead { font-size: 17px; font-weight: 500; }
+[data-theme="justice"] .member__text { font-size: 14px; }
+[data-theme="justice"] .meter__cells i { height: 12px; }
+[data-theme="justice"] .halo { border: 1px solid rgba(127, 179, 157, .25); background: repeating-radial-gradient(circle, transparent 0 28px, rgba(127, 179, 157, .06) 28px 29px); }
+[data-theme="justice"] .instrument { filter: grayscale(1) sepia(.4) hue-rotate(110deg) saturate(.55) contrast(1.2) drop-shadow(0 26px 22px rgba(0, 0, 0, .6)); }
+[data-theme="justice"] .instrument .draw { stroke: var(--accent); }
+[data-theme="justice"] .kick-ring { stroke: var(--accent); }
+[data-theme="justice"] #james.is-live .member__visual { background-image: linear-gradient(rgba(127, 179, 157, .1) 1px, transparent 1px), linear-gradient(90deg, rgba(127, 179, 157, .1) 1px, transparent 1px); background-size: 32px 32px; }
+
+[data-theme="justice"] .meterbox { position: absolute; left: 50%; bottom: -8px; transform: translateX(-50%); display: flex; align-items: center; gap: 14px; padding: 10px 16px; background: #111; border: 1px solid var(--accent); }
+[data-theme="justice"] .meterbox__sig { font-family: var(--font-display); font-weight: 900; font-size: 26px; color: var(--ink-strong); min-width: 2.5ch; }
+[data-theme="justice"] .meterbox__beats { display: flex; gap: 5px; }
+[data-theme="justice"] .meterbox__beats i { width: 10px; height: 10px; border: 1px solid var(--accent); }
+[data-theme="justice"] .meterbox__beats i.on { background: var(--accent); }
+
+[data-theme="justice"] .bass-egg { margin-top: 26px; padding-top: 20px; border-top: 1px dashed var(--line); }
+[data-theme="justice"] .bass-egg canvas { display: block; width: 100%; height: 60px; }
+[data-theme="justice"] .bass-egg button { margin-top: 10px; border-radius: 0; color: #111; border-color: #111; background: transparent; }
+[data-theme="justice"] .bass-egg button[aria-pressed="true"] { background: #111; color: #e8e3d4; }
+[data-theme="justice"] .bass-egg p { margin: 10px 0 0; font-size: 12px; color: var(--muted); }
+[data-theme="justice"] #jason .instrument { transition: filter .8s steps(6); }
+[data-theme="justice"] #jason:not(.bass-up) .instrument { filter: grayscale(1) brightness(.45) contrast(1.1) drop-shadow(0 26px 22px rgba(0, 0, 0, .6)); }
+
+/* especial: One em Morse + homenagem */
+[data-theme="justice"] .morse { display: grid; justify-items: center; gap: 30px; padding-bottom: 60px; }
+[data-theme="justice"] .morse__light { width: 120px; height: 120px; border-radius: 50%; background: #2a2d2c; box-shadow: inset 0 4px 12px rgba(0, 0, 0, .6); transition: background .02s, box-shadow .02s; }
+[data-theme="justice"] .morse__light.is-on { background: #f4fff9; box-shadow: 0 0 40px 12px rgba(200, 255, 230, .6), 0 0 120px 40px rgba(127, 179, 157, .35); }
+[data-theme="justice"] .morse__word { display: flex; gap: .3em; font-family: var(--font-display); font-weight: 900; font-size: clamp(60px, 10vw, 140px); letter-spacing: .1em; color: var(--ink-strong); }
+[data-theme="justice"] .morse__word span { opacity: .08; transition: opacity .05s; }
+[data-theme="justice"] .morse__word span.is-shown { opacity: 1; }
+[data-theme="justice"] .morse__code { font-family: var(--font-mono); color: var(--accent); letter-spacing: .4em; }
+[data-theme="justice"] .tribute { max-width: 720px; margin: 70px auto 0; padding: 30px; border: 1px solid var(--line); text-align: center; }
+[data-theme="justice"] .tribute h3 { margin: 0 0 10px; font-family: var(--font-display); font-weight: 700; font-size: 26px; color: var(--ink-strong); letter-spacing: .08em; }
+[data-theme="justice"] .tribute p { margin: 0; color: var(--muted); }
+
+/* faixas: pauta do tribunal */
+[data-theme="justice"] .tracklist__title { font-weight: 900; letter-spacing: .12em; text-transform: uppercase; }
+[data-theme="justice"] .tracklist__groups { border: 1px solid var(--line); }
+[data-theme="justice"] .tracks li { grid-template-columns: 80px 1fr auto 60px; border-bottom: 1px solid var(--line); overflow: hidden; }
+[data-theme="justice"] .tracks li::after { content: "ARQUIVADO"; position: absolute; right: 90px; top: 50%; padding: 2px 8px; border: 2px solid var(--accent-2); color: var(--accent-2); font-size: 10px; font-weight: 600; letter-spacing: .2em; opacity: 0; transform: translateY(-50%) rotate(-8deg) scale(2.2); }
+[data-theme="justice"] .tracks li.is-filed::after { animation: stamp .18s steps(3) forwards; }
+@keyframes stamp { to { opacity: .8; transform: translateY(-50%) rotate(-8deg) scale(1); } }
+[data-theme="justice"] .tracks .t { font-family: var(--font-display); font-weight: 700; letter-spacing: .06em; }
+@media (max-width: 640px) { [data-theme="justice"] .tracks li { grid-template-columns: 52px 1fr auto 44px; } [data-theme="justice"] .tracks li::after { display: none; } }
