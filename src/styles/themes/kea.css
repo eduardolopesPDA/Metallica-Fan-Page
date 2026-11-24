@@ -1,0 +1,144 @@
+/* KILL 'EM ALL — fanzine xerocado: papel sujo, tinta preta, vermelho-sangue */
+[data-theme="kea"] {
+  --bg: #e6ddc7; --bg-2: #f3ecdb; --ink: #2a2520; --ink-strong: #0f0d0b; --muted: #5d554a;
+  --accent: #b3121b; --line: rgba(20, 17, 14, .28);
+  --font-display: "Rubik Dirt", Impact, sans-serif; --font-body: "Archivo", "Arial", sans-serif; --font-mono: "Courier Prime", monospace;
+}
+[data-theme="kea"] .bg {
+  background:
+    radial-gradient(120% 90% at 50% 50%, transparent 55%, rgba(60, 45, 25, .35) 100%),
+    repeating-linear-gradient(90deg, transparent 0 140px, rgba(0, 0, 0, .025) 140px 142px, transparent 142px 310px),
+    linear-gradient(180deg, #ece4cf, #ddd2b8);
+}
+[data-theme="kea"] .bg::after { /* listras de xerox que piscam */
+  content: ""; position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent 0 3px, rgba(0, 0, 0, .035) 3px 4px);
+  animation: xerox 2.4s steps(3) infinite;
+}
+@keyframes xerox { 33% { opacity: .4; transform: translateY(2px); } 66% { opacity: .8; transform: translateY(-1px); } }
+[data-theme="kea"] .grain { opacity: .16; mix-blend-mode: multiply; }
+[data-theme="kea"] #fx-back { mix-blend-mode: multiply; }
+
+[data-theme="kea"] .cursor { width: 22px; height: 22px; margin: -11px 0 0 -11px; background: transparent; border: 2px solid var(--accent); border-radius: 50%; }
+[data-theme="kea"] .cursor::before, [data-theme="kea"] .cursor::after { content: ""; position: absolute; left: 50%; top: 50%; background: var(--accent); transform: translate(-50%, -50%); }
+[data-theme="kea"] .cursor::before { width: 30px; height: 2px; }
+[data-theme="kea"] .cursor::after { width: 2px; height: 30px; }
+
+/* loader: fita cassete */
+[data-theme="kea"] .loader { background: #15120f; color: #e6ddc7; }
+[data-theme="kea"] .cassette { width: min(320px, 80vw); }
+[data-theme="kea"] .cassette .reel { transform-box: fill-box; transform-origin: center; }
+[data-theme="kea"] .loader__label { color: #b9ad94; }
+[data-theme="kea"] .loader__count { font-family: var(--font-mono); font-weight: 700; color: #e6ddc7; letter-spacing: .1em; }
+[data-theme="kea"] .play { display: inline-block; padding: 6px 16px; border: 2px solid #e6ddc7; font-family: var(--font-mono); font-size: 13px; letter-spacing: .2em; }
+
+/* nav */
+[data-theme="kea"] .nav { background: linear-gradient(180deg, rgba(230, 221, 199, .9), transparent); }
+[data-theme="kea"] .nav__logo { font-size: 26px; text-shadow: 3px 2px 0 var(--accent); }
+[data-theme="kea"] .sound, [data-theme="kea"] .tool-btn { border-radius: 0; border: 2px solid var(--ink-strong); background: transparent; color: var(--ink-strong); }
+
+/* hero: serigrafia fora de registro + colagem */
+[data-theme="kea"] .hero__title { --mx: 6px; --my: 4px; }
+[data-theme="kea"] .hero__line { color: var(--ink-strong); text-shadow: var(--mx) var(--my) 0 var(--accent); }
+[data-theme="kea"] .hero__line--big { font-size: clamp(90px, 22vw, 320px); line-height: .82; }
+[data-theme="kea"] .hero__eyebrow { color: var(--accent); font-weight: 700; }
+[data-theme="kea"] .hero__meta { border-color: var(--ink-strong); border-width: 2px 0; }
+[data-theme="kea"] .hero__meta div { border-color: var(--ink-strong); }
+[data-theme="kea"] .btn { border: 3px solid var(--ink-strong); color: var(--ink-strong); box-shadow: 5px 5px 0 var(--accent); }
+[data-theme="kea"] .btn:hover { background: var(--ink-strong); color: var(--bg); box-shadow: 2px 2px 0 var(--accent); transform: translate(3px, 3px); }
+[data-theme="kea"] .scrap {
+  position: absolute; padding: 10px 16px; background: #f6f0e1; color: var(--ink-strong);
+  font-family: var(--font-mono); font-weight: 700; font-size: 14px; letter-spacing: .14em; text-transform: uppercase;
+  box-shadow: 2px 3px 0 rgba(0, 0, 0, .18);
+}
+[data-theme="kea"] .scrap::before { /* fita adesiva */
+  content: ""; position: absolute; left: 50%; top: -10px; width: 56px; height: 20px; margin-left: -28px;
+  background: rgba(240, 232, 200, .7); border: 1px solid rgba(0, 0, 0, .08); transform: rotate(-4deg);
+}
+[data-theme="kea"] .scrap--red { background: var(--accent); color: #f6f0e1; }
+[data-theme="kea"] .scrap--1 { left: 8%; top: 22%; transform: rotate(-9deg); }
+[data-theme="kea"] .scrap--2 { right: 9%; top: 18%; transform: rotate(7deg); }
+[data-theme="kea"] .scrap--3 { left: 12%; bottom: 20%; transform: rotate(5deg); }
+[data-theme="kea"] .scrap--4 { right: 12%; bottom: 24%; transform: rotate(-6deg); }
+[data-theme="kea"] .staple { position: absolute; width: 22px; height: 4px; background: linear-gradient(90deg, #888, #ddd, #777); border-radius: 2px; box-shadow: 0 1px 0 rgba(0, 0, 0, .3); }
+@media (max-width: 900px) { [data-theme="kea"] .scrap--3, [data-theme="kea"] .scrap--4 { display: none; } [data-theme="kea"] .scrap--1 { top: 12%; } [data-theme="kea"] .scrap--2 { top: 14%; } }
+
+/* marquee: faixa preta */
+[data-theme="kea"] .marquee { background: var(--ink-strong); border: 0; transform: rotate(1.2deg) scale(1.03); }
+[data-theme="kea"] .marquee__track span { color: var(--bg); }
+[data-theme="kea"] .marquee__track i { width: 14px; height: 14px; background: var(--accent); clip-path: polygon(20% 0, 50% 30%, 80% 0, 100% 20%, 70% 50%, 100% 80%, 80% 100%, 50% 70%, 20% 100%, 0 80%, 30% 50%, 0 20%); }
+
+/* integrantes: flyers colados */
+[data-theme="kea"] .member + .member { border-top: 2px dashed var(--line); }
+[data-theme="kea"] .member__ghost { -webkit-text-stroke: 2px rgba(179, 18, 27, .18); }
+[data-theme="kea"] .member__content { background: var(--bg-2); padding: clamp(24px, 3vw, 40px); transform: rotate(-1.2deg); box-shadow: 4px 6px 0 rgba(0, 0, 0, .14); }
+[data-theme="kea"] .member--reverse .member__content { transform: rotate(1.1deg); }
+[data-theme="kea"] .member__content::before, [data-theme="kea"] .member__content::after {
+  content: ""; position: absolute; top: -12px; width: 80px; height: 24px; background: rgba(240, 232, 200, .75); border: 1px solid rgba(0, 0, 0, .08);
+}
+[data-theme="kea"] .member__content::before { left: 24px; transform: rotate(-6deg); }
+[data-theme="kea"] .member__content::after { right: 24px; transform: rotate(5deg); }
+[data-theme="kea"] .member__index em { border: 2px solid var(--ink-strong); color: var(--ink-strong); font-weight: 700; }
+[data-theme="kea"] .member__index::after { content: "AO VIVO"; margin-left: 10px; padding: 3px 8px; background: var(--accent); color: var(--bg-2); font-weight: 700; letter-spacing: .2em; font-size: 11px; }
+[data-theme="kea"] .member__name > span { font-size: clamp(44px, 5.6vw, 92px); white-space: nowrap; }
+[data-theme="kea"] .member__name > span:first-child { text-shadow: 4px 3px 0 var(--accent); }
+[data-theme="kea"] .member__name .outline { -webkit-text-stroke: 2px var(--ink-strong); }
+[data-theme="kea"] .member__stamp { border-width: 4px; top: 10px; right: 20px; font-family: var(--font-display); }
+[data-theme="kea"] .facts dt { color: var(--accent); }
+[data-theme="kea"] .meter__cells i { background: transparent; border: 2px solid var(--ink-strong); height: 16px; }
+[data-theme="kea"] .meter__cells i.on { background: var(--accent); border-color: var(--accent); }
+[data-theme="kea"] .halo { background: radial-gradient(circle, rgba(179, 18, 27, .22), rgba(179, 18, 27, .08) 50%, transparent 68%); border-radius: 46% 54% 50% 50%; }
+[data-theme="kea"] .instrument { filter: grayscale(1) contrast(1.35) brightness(1.05) drop-shadow(6px 8px 0 rgba(0, 0, 0, .18)); }
+[data-theme="kea"] .instrument .draw { stroke: var(--ink-strong); stroke-width: 2; }
+[data-theme="kea"] .kick-ring { stroke: var(--accent); }
+[data-theme="kea"] .kick-mark { fill: #fff; font-size: 34px; }
+[data-theme="kea"] .fx-local { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+[data-theme="kea"] .fx-local--under { z-index: 0; }
+[data-theme="kea"] #james.is-live .strings line { animation-duration: .04s; }
+
+/* metrônomo do Lars */
+[data-theme="kea"] .metro { position: absolute; left: 50%; bottom: -10px; transform: translateX(-50%); display: flex; align-items: baseline; gap: 6px; padding: 8px 18px 8px 54px; background: var(--ink-strong); color: var(--bg); font-family: var(--font-mono); font-weight: 700; }
+[data-theme="kea"] .metro__arm { position: absolute; left: 26px; bottom: 6px; width: 3px; height: 34px; background: var(--accent); transform-origin: 50% 100%; }
+[data-theme="kea"] .metro__bpm { font-size: 24px; min-width: 3ch; text-align: right; }
+
+/* solo do Cliff: a seção vira palco escuro com um refletor */
+[data-theme="kea"] #cliff { transition: background .6s, color .6s; }
+[data-theme="kea"] #cliff.is-solo { background: radial-gradient(60% 70% at 30% 50%, #3a1010 0%, #120c0a 55%, #050404 100%); --ink: #e6ddc7; --ink-strong: #f6f0e1; --muted: #b5a88f; --bg-2: #1b1512; --line: rgba(230, 221, 199, .2); }
+[data-theme="kea"] #cliff.is-solo .member__content { box-shadow: 4px 6px 0 rgba(179, 18, 27, .5); }
+[data-theme="kea"] #cliff.is-solo .instrument { filter: url(#kea-warp) grayscale(.2) contrast(1.2) drop-shadow(0 0 30px rgba(179, 18, 27, .6)); }
+[data-theme="kea"] #cliff.is-solo .halo { background: radial-gradient(circle, rgba(255, 220, 180, .25), transparent 65%); }
+
+/* seção especial: fita */
+[data-theme="kea"] .tape-story { overflow: hidden; }
+[data-theme="kea"] .reels { display: flex; justify-content: center; gap: 120px; margin: 0 auto 30px; }
+[data-theme="kea"] .big-reel { width: 120px; height: 120px; }
+[data-theme="kea"] .tape-track { position: relative; max-width: 900px; margin: 0 auto; }
+[data-theme="kea"] .tape-ribbon { position: absolute; left: 50%; top: 0; bottom: 0; width: 18px; margin-left: -9px; background: linear-gradient(90deg, #3a2414, #6b4426, #3a2414); }
+[data-theme="kea"] .milestone { position: relative; width: calc(50% - 40px); margin-bottom: 36px; padding: 18px 20px; background: var(--bg-2); box-shadow: 3px 4px 0 rgba(0, 0, 0, .15); }
+[data-theme="kea"] .milestone:nth-child(even) { margin-left: auto; }
+[data-theme="kea"] .milestone strong { display: block; font-family: var(--font-display); font-size: 30px; color: var(--accent); font-weight: 400; }
+[data-theme="kea"] .milestone p { margin: 6px 0 0; }
+@media (max-width: 700px) { [data-theme="kea"] .milestone { width: auto; margin-left: 36px !important; } [data-theme="kea"] .tape-ribbon { left: 12px; } [data-theme="kea"] .reels { gap: 40px; } }
+
+/* faixas: encarte de fita (J-card) */
+[data-theme="kea"] .tracklist__title { text-shadow: 4px 3px 0 var(--accent); }
+[data-theme="kea"] .tracklist__groups { position: relative; background: #f6f0e1; padding: 28px 30px; box-shadow: 6px 8px 0 rgba(0, 0, 0, .18); border-top: 14px solid var(--accent); }
+[data-theme="kea"] .tracklist__groups::after { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 6px; background: var(--ink-strong); }
+[data-theme="kea"] .tracks li { padding: 10px 8px; border-bottom: 1px dashed var(--line); }
+[data-theme="kea"] .tracks li:hover { background: rgba(179, 18, 27, .1); }
+[data-theme="kea"] .tracks .t { font-family: var(--font-mono); font-weight: 700; }
+[data-theme="kea"] .playhead { position: absolute; left: 0; top: 0; width: 0; height: 0; border-left: 14px solid var(--accent); border-top: 8px solid transparent; border-bottom: 8px solid transparent; opacity: 0; pointer-events: none; }
+[data-theme="kea"] .album-nav__home { border: 2px solid var(--ink-strong); }
+
+/* easter egg: ônibus de volta para a Califórnia */
+[data-theme="kea"] .bus { position: fixed; left: 0; bottom: 18px; z-index: 46; width: 260px; pointer-events: none; }
+[data-theme="kea"] .bus svg { display: block; width: 100%; filter: drop-shadow(4px 6px 0 rgba(0, 0, 0, .2)); }
+[data-theme="kea"] .bus__sign { position: absolute; left: 44px; top: -26px; padding: 3px 10px; background: var(--ink-strong); color: var(--bg); font-family: var(--font-mono); font-weight: 700; font-size: 12px; letter-spacing: .1em; white-space: nowrap; }
+[data-theme="kea"] .egg-toast { background: #f6f0e1; color: var(--ink); border: 0; box-shadow: 6px 8px 0 rgba(0, 0, 0, .2); transform-origin: 80% 100%; }
+[data-theme="kea"] .egg-toast__stamp { background: #f6f0e1; }
+[data-theme="kea"] .milestone[data-egg] strong::after { content: " ✶"; font-size: 18px; }
+@media (max-width: 640px) { [data-theme="kea"] .bus { width: 180px; } }
+@media (max-width: 640px) {
+  [data-theme="kea"] .tracklist__groups { padding: 22px 14px; }
+  [data-theme="kea"] .tracks .t { font-size: 13px; }
+}
