@@ -1,0 +1,59 @@
+---
+import Album from '../layouts/Album.astro';
+import { albums } from '../data/albums.js';
+import '../styles/themes/mop.css';
+const album = albums['master-of-puppets'];
+const fonts = 'https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap';
+const ROMAN = ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII'];
+const xs = [40, 80, 120, 160, 200, 240, 280, 320];
+---
+<Album
+  album={album}
+  fonts={fonts}
+  hint="agarre uma corda e puxe · clique para sacudir o palco"
+  notes={{ cliff: '✝ 10.02.1962 — 27.09.1986' }}
+  tracklist={{ title: 'Programa', numbering: 'roman' }}
+>
+  <div slot="overlays" class="control-bar" aria-hidden="true"></div>
+
+  <Fragment slot="loader">
+    <svg viewBox="0 0 360 240" aria-hidden="true">
+      <g class="ld-bar">
+        <rect x="20" y="20" width="320" height="12" rx="6" fill="#7a4a20" />
+        <rect x="174" y="0" width="12" height="60" rx="6" fill="#5a3415" />
+      </g>
+      {xs.map((x, i) => <path class="ld-string" d={`M${x} 32 L${x} ${150 + (i % 3) * 20}`} />)}
+    </svg>
+    <p class="loader__label">Esticando as cordas</p>
+  </Fragment>
+
+  <Fragment slot="hero-art">
+    <div class="valance"></div>
+    <div class="curtain curtain--l"></div>
+    <div class="curtain curtain--r"></div>
+  </Fragment>
+
+  <section slot="special" class="special" aria-labelledby="cards-title">
+    <div class="special__head">
+      <p class="special__kicker">Quem puxa as cordas</p>
+      <h2 class="special__title" id="cards-title">Oito faixas, oito cordas</h2>
+      <p class="special__text">Cada música fala de uma forma de controle. Clique num card para virar e ver o tema — ou agarre a corda e balance.</p>
+    </div>
+    <div class="strings-grid">
+      {album.tracks.map(([t], i) => (
+        <button class="string-card" type="button" aria-expanded="false">
+          <span class="string-card__inner">
+            <span class="string-card__face string-card__face--front"><small>{ROMAN[i]}</small><strong>{t}</strong></span>
+            <span class="string-card__face string-card__face--back">{album.themes[i]}</span>
+          </span>
+        </button>
+      ))}
+    </div>
+  </section>
+</Album>
+
+<script>
+  import { boot } from '../scripts/core/page.js';
+  import theme from '../scripts/themes/mop.js';
+  boot(theme);
+</script>
