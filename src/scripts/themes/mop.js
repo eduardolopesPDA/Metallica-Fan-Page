@@ -5,9 +5,59 @@
    pode agarrar e puxar as cordas; soltar dedilha a corda
    (síntese Karplus-Strong).
    ========================================================= */
+import { createShow } from './mop-marionettes.js';
+
 let api, W = 0, H = 0;
 const puppets = [];
-let barY = 78, lastScroll = 0, grab = null;
+let barY = 78, lastScroll = 0, grab = null, show = null;
+
+/* cordas das marionetes: mesma física Verlet, o pivô na cruzeta segue o boneco devagar */
+function simulateWire(c, ax, ay, k) {
+  const pts = c.pts, n = pts.length;
+  const len = Math.hypot(ax - c.px, ay - barY) / (n - 1) * 1.015;
+  for (const q of pts) {
+    const vx = (q.x - q.ox) * .98, vy = (q.y - q.oy) * .98;
+    q.ox = q.x; q.oy = q.y; q.x += vx; q.y += vy + .25 * k;
+  }
+  for (let it = 0; it < 6; it++) {
+    pts[0].x = c.px; pts[0].y = barY;
+    pts[n - 1].x = ax; pts[n - 1].y = ay;
+    if (grab && grab.chain === c) { pts[grab.idx].x = grab.x; pts[grab.idx].y = grab.y; }
+    for (let j = 0; j < n - 1; j++) {
+      const q1 = pts[j], q2 = pts[j + 1];
+      const dx = q2.x - q1.x, dy = q2.y - q1.y, d = Math.hypot(dx, dy) || 1;
+      const diff = (d - len) / d * .5;
+      if (j > 0) { q1.x += dx * diff; q1.y += dy * diff; }
+      if (j < n - 2) { q2.x -= dx * diff; q2.y -= dy * diff; }
+    }
+  }
+}
+function stepWires(dt) {
+  if (!show) return;
+  const vis = show.visible(), k = dt / 16;
+  for (const w of show.wires) {
+    w.alpha = (w.alpha || 0) + ((vis ? 1 : 0) - (w.alpha || 0)) * .12;
+    if (w.alpha < .02) { w.chain = null; continue; }
+    const r = w.el.getBoundingClientRect();
+    const ax = r.left + r.width / 2, ay = r.top + r.height / 2;
+    if (!w.chain) w.chain = makeChain(ax, ax, ay);
+    w.chain.px += (ax - w.chain.px) * .04;
+    simulateWire(w.chain, ax, ay, k);
+  }
+}
+function drawChain(ctx, c, alpha) {
+  const pts = c.pts;
+  ctx.strokeStyle = `rgba(${BONE},${.7 * alpha})`;
+  ctx.lineWidth = grab && grab.chain === c ? 1.8 : 1.1;
+  ctx.beginPath(); ctx.moveTo(pts[0].x, pts[0].y);
+  for (let j = 1; j < pts.length - 1; j++) {
+    const mx = (pts[j].x + pts[j + 1].x) / 2, my = (pts[j].y + pts[j + 1].y) / 2;
+    ctx.quadraticCurveTo(pts[j].x, pts[j].y, mx, my);
+  }
+  const last = pts[pts.length - 1]; ctx.lineTo(last.x, last.y); ctx.stroke();
+  ctx.fillStyle = `rgba(${GOLD},${alpha})`;
+  ctx.beginPath(); ctx.arc(pts[0].x, pts[0].y, 2.4, 0, Math.PI * 2); ctx.fill();
+}
 
 const BONE = '239,227,207', GOLD = '217,164,65';
 
@@ -122,6 +172,7 @@ function drawStrings() {
       ctx.beginPath(); ctx.arc(pts[0].x, pts[0].y, 2.4, 0, Math.PI * 2); ctx.fill();
     }
   }
+  if (show) for (const w of show.wires) if (w.chain && w.alpha > .02) drawChain(ctx, w.chain, w.alpha);
 }
 
 /* ---------- poeira no ar ---------- */
@@ -164,7 +215,8 @@ const theme = {
     api = a;
     api.onResize((w, h) => { W = w; H = h; dust = Array.from({ length: 70 }, () => ({ x: Math.random() * w, y: Math.random() * h, r: api.rand(.6, 2), v: api.rand(.1, .45), a: api.rand(.15, .5), s: Math.random() * 500 })); });
     const bar = api.$('.control-bar'); if (bar) barY = bar.getBoundingClientRect().bottom - 2;
-    api.ticker((now, dt) => { step(dt); drawStrings(); if (!api.reduce) drawDust(); });
+    show = createShow(api, { pluck });
+    api.ticker((now, dt) => { show?.update(now, dt); step(dt); stepWires(dt); drawStrings(); if (!api.reduce) drawDust(); });
 
     // quem está pendurado
     api.$$('.hero__line').forEach(el => puppet(el, [.15, .85], { k: 7 }));
@@ -218,14 +270,27 @@ const theme = {
         if (d < bd) { bd = d; best = { chain: c, idx, p }; }
       });
     }
+    if (show) for (const w of show.wires) {
+      if (!w.chain || w.alpha < .5) continue;
+      w.chain.pts.forEach((q, idx) => {
+        if (idx === 0 || idx === w.chain.pts.length - 1) return;
+        const d = Math.hypot(q.x - e.clientX, q.y - e.clientY);
+        if (d < bd) { bd = d; best = { chain: w.chain, idx, wire: w }; }
+      });
+    }
     if (!best) return false;
     grab = { ...best, x: e.clientX, y: e.clientY };
     document.body.classList.add('is-pulling');
     return true;
   },
-  onPointerMove(e) { if (grab) { grab.x = e.clientX; grab.y = e.clientY; } },
+  onPointerMove(e) {
+    if (!grab) return;
+    grab.x = e.clientX; grab.y = e.clientY;
+    if (grab.wire) show.pull(grab.wire, grab.x, grab.y);
+  },
   onPointerUp() {
     if (!grab) return;
+    if (grab.wire) show.release(grab.wire);
     const c = grab.chain, len = Math.hypot(c.pts.at(-1).x - c.px, c.pts.at(-1).y - barY);
     pluck(Math.max(70, Math.min(440, 52000 / Math.max(len, 60))), .4);
     grab = null;
@@ -233,6 +298,10 @@ const theme = {
   },
 
   onClick(x, y) {
+    // clique numa marionete: ela pula e ergue os braços
+    const hit = document.elementFromPoint(x, y)?.closest('.marionette');
+    const m = hit && show?.list.find(q => q.svg === hit);
+    if (m) { show.jump(m); return; }
     for (const p of puppets) if (p.alpha > .5) p.omega += api.rand(.8, 1.6) * (x < W / 2 ? -1 : 1);
     pluck(api.rand(110, 330), .25);
     api.burst(x, y, 14, { color: GOLD, kind: 'dot', size: 2, speed: 3, gravity: .02 });

@@ -33,6 +33,27 @@ const xs = [40, 80, 120, 160, 200, 240, 280, 320];
     <div class="curtain curtain--r"></div>
   </Fragment>
 
+  <section slot="special" class="special show" aria-labelledby="show-title">
+    <div class="special__head">
+      <p class="special__kicker">O espetáculo</p>
+      <h2 class="special__title" id="show-title">A banda nas cordas</h2>
+      <p class="special__text">James, Lars, Kirk e Cliff em marionetes de madeira, tocando no palco. Puxe as cordas da cabeça, das mãos e dos joelhos — ou clique num deles.</p>
+    </div>
+    <div class="show__stage">
+      <div class="show__band">
+        {album.members.map((mb) => (
+          <figure class="show__slot">
+            <svg class="marionette" data-member={mb.id} viewBox="0 0 200 340" role="img" aria-label={`Marionete de ${mb.first} ${mb.last}`}></svg>
+            <figcaption>{mb.first}</figcaption>
+          </figure>
+        ))}
+      </div>
+      <div class="show__floor" aria-hidden="true"></div>
+      <div class="show__curtain show__curtain--l" aria-hidden="true"></div>
+      <div class="show__curtain show__curtain--r" aria-hidden="true"></div>
+    </div>
+  </section>
+
   <section slot="special" class="special" aria-labelledby="cards-title">
     <div class="special__head">
       <p class="special__kicker">Quem puxa as cordas</p>
