@@ -51,8 +51,8 @@ export const albums = {
     ],
     tracks: [
       ['Hit the Lights', 'JH LU', '4:17'], ['The Four Horsemen', 'JH LU DM', '7:13'], ['Motorbreath', 'JH', '3:08'],
-      ['Jump in the Fire', 'JH LU DM', '4:41'], ['(Anesthesia) – Pulling Teeth', 'CB', '4:14'], ['Whiplash', 'JH LU', '4:09'],
-      ['Phantom Lord', 'JH LU DM', '5:02'], ['No Remorse', 'JH LU', '6:26'], ['Seek & Destroy', 'JH LU', '6:55'], ['Metal Militia', 'JH LU DM', '5:11'],
+      ['Jump in the Fire', 'JH LU DM', '4:41'], ['(Anesthesia) – Pulling Teeth', 'CB', '4:14'], ['Whiplash', 'JH LU', '4:08'],
+      ['Phantom Lord', 'JH LU DM', '5:01'], ['No Remorse', 'JH LU', '6:26'], ['Seek & Destroy', 'JH LU', '6:54'], ['Metal Militia', 'JH LU DM', '5:11'],
     ],
     // easter egg: Dave Mustaine
     dmNotes: {
@@ -98,22 +98,22 @@ export const albums = {
         instrument: { type: 'drums', finish: 'blue', mark: '1984' },
       }),
       m(KIRK, {
-        role: 'Guitarra solo', credits: 3, highlight: 'Creeping Death',
+        role: 'Guitarra solo', credits: 4, highlight: 'Creeping Death',
         lead: 'Cofundador do Exodus e aluno de Joe Satriani, Kirk entrou em abril de 1983. Ride the Lightning é o primeiro disco em que ele compõe com a banda desde o começo.',
-        text: 'Os solos ficam mais melódicos e cheios de wah-wah, e as ideias dele aparecem em <b>Fade to Black</b>, <b>Trapped Under Ice</b> e <b>Creeping Death</b>, cuja ponte nasceu de um riff dos tempos de Exodus.',
+        text: 'Os solos ficam mais melódicos e cheios de wah-wah, e as ideias dele aparecem em <b>Fade to Black</b>, <b>Trapped Under Ice</b>, <b>Escape</b> e <b>Creeping Death</b>, cuja ponte nasceu de um riff dos tempos de Exodus.',
         instrument: { type: 'x', finish: 'ivory', guard: 'black' },
       }),
       m(CLIFF, {
-        role: 'Baixo', credits: 7, highlight: 'For Whom the Bell Tolls',
+        role: 'Baixo', credits: 6, highlight: 'For Whom the Bell Tolls',
         lead: 'Formação clássica, baixo com distorção e wah-wah, e um gosto que ia de Bach a Lovecraft. Cliff mudou a forma como o Metallica pensava harmonia.',
         text: 'A introdução de <b>For Whom the Bell Tolls</b> — que muita gente jura ser guitarra — é o baixo dele. Cliff também assina a instrumental <b>The Call of Ktulu</b>, que fecha o disco.',
         instrument: { type: 'bass4001', finish: 'fireglo' },
       }),
     ],
     tracks: [
-      ['Fight Fire with Fire', 'JH LU CB', '4:45'], ['Ride the Lightning', 'JH LU CB DM', '6:37'], ['For Whom the Bell Tolls', 'JH LU CB', '5:10'],
-      ['Fade to Black', 'JH LU CB KH', '6:57'], ['Trapped Under Ice', 'JH LU KH', '4:04'], ['Escape', 'JH LU CB', '4:24'],
-      ['Creeping Death', 'JH LU CB KH', '6:36'], ['The Call of Ktulu', 'JH LU CB DM', '8:53'],
+      ['Fight Fire with Fire', 'JH LU CB', '4:44'], ['Ride the Lightning', 'JH LU CB DM', '6:37'], ['For Whom the Bell Tolls', 'JH LU CB', '5:11'],
+      ['Fade to Black', 'JH LU CB KH', '6:55'], ['Trapped Under Ice', 'JH LU KH', '4:04'], ['Escape', 'JH LU KH', '4:24'],
+      ['Creeping Death', 'JH LU CB KH', '6:36'], ['The Call of Ktulu', 'JH LU CB DM', '8:55'],
     ],
     // easter egg: Dave Mustaine
     dmNotes: {
@@ -143,9 +143,9 @@ export const albums = {
         instrument: { type: 'x', finish: 'black', guard: 'white' },
       }),
       m(LARS, {
-        role: 'Bateria', credits: 7, highlight: 'Battery',
+        role: 'Bateria', credits: 8, highlight: 'Battery',
         lead: 'De volta ao Sweet Silence, em Copenhague, com Flemming Rasmussen, Lars ajudou a dar ao disco uma bateria maior e mais controlada.',
-        text: '<b>Battery</b> abre o álbum com uma introdução acústica que explode em velocidade, e é a bateria dele que dita o ataque. Lars assina sete das oito faixas.',
+        text: '<b>Battery</b> abre o álbum com uma introdução acústica que explode em velocidade, e é a bateria dele que dita o ataque. Lars assina as oito faixas.',
         instrument: { type: 'drums', finish: 'wine', mark: '1986' },
       }),
       m(KIRK, {
@@ -162,9 +162,9 @@ export const albums = {
       }),
     ],
     tracks: [
-      ['Battery', 'JH LU', '5:12'], ['Master of Puppets', 'JH LU CB KH', '8:35'], ['The Thing That Should Not Be', 'JH LU KH', '6:36'],
-      ['Welcome Home (Sanitarium)', 'JH LU KH', '6:27'], ['Disposable Heroes', 'JH KH', '8:16'], ['Leper Messiah', 'JH LU', '5:40'],
-      ['Orion', 'JH LU CB', '8:27'], ['Damage, Inc.', 'JH LU CB KH', '5:32'],
+      ['Battery', 'JH LU', '5:13'], ['Master of Puppets', 'JH LU CB KH', '8:36'], ['The Thing That Should Not Be', 'JH LU KH', '6:37'],
+      ['Welcome Home (Sanitarium)', 'JH LU KH', '6:28'], ['Disposable Heroes', 'JH LU KH', '8:17'], ['Leper Messiah', 'JH LU', '5:40'],
+      ['Orion', 'JH LU CB', '8:28'], ['Damage, Inc.', 'JH LU CB KH', '5:33'],
     ],
     themes: [
       'Ataque e fúria: a abertura que transforma velocidade em arma.',
@@ -183,7 +183,7 @@ export const albums = {
     title: ['...And Justice', 'for All'], name: '...And Justice for All',
     eyebrow: ['Metallica', '1988', '4º álbum'],
     sub: 'Nove faixas longas, técnicas e frias sobre um sistema que falha. O disco mais complexo da banda.',
-    meta: [['Lançamento', '25.08.1988'], ['Gravadora', 'Elektra'], ['Estúdio', 'One on One · LA']],
+    meta: [['Lançamento', '07.09.1988'], ['Gravadora', 'Elektra'], ['Estúdio', 'One on One · LA']],
     meter: { label: 'processo', max: 9999 },
     members: [
       m(JAMES, {
@@ -212,9 +212,9 @@ export const albums = {
       }),
     ],
     tracks: [
-      ['Blackened', 'JH LU JN', '6:41'], ['...And Justice for All', 'JH LU KH', '9:44'], ['Eye of the Beholder', 'JH LU KH', '6:25'],
-      ['One', 'JH LU', '7:24'], ['The Shortest Straw', 'JH LU', '6:35'], ['Harvester of Sorrow', 'JH LU', '5:42'],
-      ['The Frayed Ends of Sanity', 'JH LU KH', '7:40'], ['To Live Is to Die', 'JH LU CB', '9:48'], ['Dyers Eve', 'JH LU KH', '5:13'],
+      ['Blackened', 'JH LU JN', '6:42'], ['...And Justice for All', 'JH LU KH', '9:46'], ['Eye of the Beholder', 'JH LU KH', '6:25'],
+      ['One', 'JH LU', '7:26'], ['The Shortest Straw', 'JH LU', '6:35'], ['Harvester of Sorrow', 'JH LU', '5:45'],
+      ['The Frayed Ends of Sanity', 'JH LU KH', '7:43'], ['To Live Is to Die', 'JH LU CB', '9:49'], ['Dyers Eve', 'JH LU KH', '5:14'],
     ],
   },
 
@@ -253,7 +253,7 @@ export const albums = {
     ],
     tracks: [
       ['Enter Sandman', 'JH LU KH', '5:31'], ['Sad but True', 'JH LU', '5:24'], ['Holier Than Thou', 'JH LU', '3:47'],
-      ['The Unforgiven', 'JH LU KH', '6:26'], ['Wherever I May Roam', 'JH LU', '6:44'], ["Don't Tread on Me", 'JH LU', '4:00'],
+      ['The Unforgiven', 'JH LU KH', '6:27'], ['Wherever I May Roam', 'JH LU', '6:44'], ["Don't Tread on Me", 'JH LU', '4:00'],
       ['Through the Never', 'JH LU KH', '4:04'], ['Nothing Else Matters', 'JH LU', '6:28'], ['Of Wolf and Man', 'JH LU KH', '4:16'],
       ['The God That Failed', 'JH LU', '5:08'], ['My Friend of Misery', 'JH LU JN', '6:49'], ['The Struggle Within', 'JH LU', '3:53'],
     ],
