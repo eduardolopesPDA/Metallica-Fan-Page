@@ -1,0 +1,78 @@
+/* =========================================================
+   EPÍLOGO e FONTES — tema neutro: preto, branco quente e um dourado
+   discreto. Depois de cinco climas, o fim é sóbrio, como os créditos de um filme.
+   ========================================================= */
+[data-theme="epilogo"], [data-theme="fontes"] {
+  --bg: #050505; --bg-2: #101010;
+  --ink: #e9e4da; --ink-strong: #fff; --muted: rgba(233, 228, 218, .58);
+  --accent: #e8c27a; --accent-2: #b8935a; --line: rgba(233, 228, 218, .16);
+  --font-display: "Archivo Black", Impact, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: "Inter", system-ui, sans-serif;
+}
+
+/* ---------- navegação simples ---------- */
+.page-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 18px var(--gutter); }
+.page-nav__logo { font-family: var(--font-display); letter-spacing: .14em; font-size: 18px; text-decoration: none; color: var(--ink-strong); }
+.page-nav__links { display: flex; gap: 22px; }
+.page-nav__links a { font-size: 12px; letter-spacing: .22em; text-transform: uppercase; text-decoration: none; color: var(--muted); transition: color .2s; }
+.page-nav__links a:hover, .page-nav__links a:focus-visible { color: var(--accent); }
+body.story-on .page-nav { opacity: 0; pointer-events: none; transition: opacity .4s; }
+.page-nav { transition: opacity .4s; }
+
+/* ---------- créditos ---------- */
+.credits { padding: 22vh var(--gutter) 26vh; text-align: center; display: grid; justify-items: center; gap: 15vh; }
+.credits__title { margin: 0; font-family: var(--font-display); font-size: clamp(40px, 8vw, 110px); letter-spacing: .06em; text-transform: uppercase; color: var(--ink-strong); line-height: 1; }
+.credits__block { display: grid; gap: 14px; max-width: 620px; }
+.credits__role { margin: 0; font-size: 12px; letter-spacing: .32em; text-transform: uppercase; color: var(--accent); }
+.credits__names { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.credits__names li { font-family: var(--font-display); font-size: clamp(22px, 3vw, 34px); color: var(--ink-strong); line-height: 1.15; }
+.credits__names small { display: block; margin-top: 4px; font-family: var(--font-body); font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); }
+.credits__prod { margin: 6px 0 0; font-size: 13px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.credits__block--tribute { gap: 6px; }
+.credits__dedication { margin: 0; font-family: var(--font-display); font-size: clamp(30px, 5vw, 64px); color: var(--ink-strong); }
+.credits__years { margin: 0; font-size: 14px; letter-spacing: .5em; color: var(--muted); }
+.credits__note { margin: 0; color: var(--muted); font-size: 15px; }
+.credits__links { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; }
+.credits__links a { font-size: 12px; letter-spacing: .22em; text-transform: uppercase; text-decoration: none; color: var(--accent); border: 1px solid var(--accent); padding: 14px 22px; transition: background .2s, color .2s; }
+.credits__links a:hover, .credits__links a:focus-visible { background: var(--accent); color: var(--bg); }
+
+/* ---------- fontes ---------- */
+.sources { max-width: 1040px; margin: 0 auto; padding: 130px var(--gutter) 80px; }
+.sources__head { max-width: 760px; margin-bottom: 70px; }
+.sources__kicker { margin: 0 0 12px; font-size: 12px; letter-spacing: .32em; text-transform: uppercase; color: var(--accent); }
+.sources__title { margin: 0 0 24px; font-family: var(--font-display); font-size: clamp(48px, 9vw, 120px); line-height: .95; color: var(--ink-strong); text-transform: uppercase; }
+.sources__lead { margin: 0; color: var(--muted); font-size: 16px; }
+.sources__h2 { margin: 0 0 22px; font-size: 13px; letter-spacing: .26em; text-transform: uppercase; color: var(--ink-strong); padding-bottom: 12px; border-bottom: 1px solid var(--line); }
+
+.status { margin-bottom: 70px; }
+.status__grid { margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.status__item { padding: 20px; border: 1px solid var(--line); border-top: 3px solid var(--c, var(--accent)); }
+.status__item--0 { --c: #7fb39d; } .status__item--1 { --c: #e8c27a; } .status__item--2 { --c: #d9775a; } .status__item--3 { --c: #6b6b6b; }
+.status__item dt { font-family: var(--font-display); font-size: 18px; color: var(--ink-strong); margin-bottom: 10px; }
+.status__item dd { margin: 0; font-size: 14px; color: var(--muted); }
+.status__item dd span { display: block; margin-top: 10px; color: var(--ink); }
+
+.sources__group { margin-bottom: 56px; }
+.sources__list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px 28px; counter-reset: src; }
+.sources__list li { counter-increment: src; }
+.sources__list a { display: grid; grid-template-columns: 34px 1fr; padding: 12px 0; text-decoration: none; color: var(--ink); border-bottom: 1px solid var(--line); transition: color .2s, padding .25s; }
+.sources__list a::before { content: counter(src, decimal-leading-zero); grid-row: span 2; font-size: 12px; color: var(--accent); padding-top: 3px; }
+.sources__list a small { font-size: 12px; color: var(--muted); }
+.sources__list a:hover, .sources__list a:focus-visible { color: var(--accent); padding-left: 6px; }
+.sources__foot { margin-top: 90px; padding-top: 30px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 24px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+.sources__foot p { margin: 0; max-width: 560px; }
+.sources__foot a { color: var(--accent); text-decoration: none; letter-spacing: .14em; text-transform: uppercase; font-size: 12px; }
+
+@media (max-width: 800px) {
+  .status__grid { grid-template-columns: 1fr 1fr; }
+  .sources__list { grid-template-columns: 1fr; }
+  .page-nav__links { gap: 14px; }
+}
+@media (max-width: 480px) {
+  .status__grid { grid-template-columns: 1fr; }
+}
+
+/* no epílogo o mapa já é a cena inteira: o minimapa sai */
+body[data-theme="epilogo"] .minimap { display: none; }
+.tdot { transform-box: fill-box; transform-origin: center; transition: opacity .35s, transform .45s cubic-bezier(.2, 1.6, .4, 1); }

@@ -1,0 +1,63 @@
+---
+/* Fontes: de onde vem cada fato contado no filme. */
+import Base from '../layouts/Base.astro';
+import { sources, statuses } from '../data/sources.js';
+import '../styles/pages.css';
+
+const fonts = 'https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;700&display=swap';
+const count = sources.reduce((n, g) => n + g.items.length, 0);
+---
+<Base
+  title="Fontes · Metallica 1981–1991"
+  description="Fan page não oficial: as fontes usadas para contar a história do Metallica de 1981 a 1991."
+  fonts={fonts}
+  theme="fontes"
+>
+  <header class="page-nav">
+    <a href="/" class="page-nav__logo" aria-label="Voltar à linha do tempo">METALLICA</a>
+    <nav class="page-nav__links" aria-label="Navegação">
+      <a href="/">Linha do tempo</a>
+      <a href="/epilogo/">Epílogo</a>
+    </nav>
+  </header>
+
+  <main class="sources">
+    <header class="sources__head">
+      <p class="sources__kicker">Bastidores do filme</p>
+      <h1 class="sources__title">Fontes</h1>
+      <p class="sources__lead">A história deste site foi montada a partir de mais de 120 páginas lidas. Abaixo estão as {count} principais. Cada fato passou por um dos quatro status a seguir antes de entrar no roteiro. O site oficial, a Rolling Stone, a Billboard, a Kerrang!, a Revolver e o Guardian bloquearam o acesso automático e não entraram como fonte.</p>
+    </header>
+
+    <section class="status" aria-labelledby="status-title">
+      <h2 class="sources__h2" id="status-title">Como cada fato foi tratado</h2>
+      <dl class="status__grid">
+        {statuses.map(([name, meaning, use], i) => (
+          <div class={`status__item status__item--${i}`}>
+            <dt>{name}</dt>
+            <dd>{meaning}<span>{use}</span></dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    {sources.map((g) => (
+      <section class="sources__group" aria-label={g.group}>
+        <h2 class="sources__h2">{g.group}</h2>
+        <ol class="sources__list">
+          {g.items.map(([title, href]) => (
+            <li><a href={href} target="_blank" rel="noopener noreferrer">{title}<small>{new URL(href).hostname.replace('www.', '')}</small></a></li>
+          ))}
+        </ol>
+      </section>
+    ))}
+
+    <footer class="sources__foot">
+      <p>Fan page não oficial, feita como estudo de design e animação. Sem afiliação com o Metallica ou suas gravadoras. Todo o visual é original.</p>
+      <a href="/">← Voltar à linha do tempo</a>
+    </footer>
+  </main>
+</Base>
+
+<script>
+  document.body.classList.remove('is-loading');
+</script>

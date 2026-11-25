@@ -1,0 +1,86 @@
+---
+/* Epílogo: a década inteira numa linha, e os créditos subindo no fim. */
+import Base from '../layouts/Base.astro';
+import Story from '../components/Story.astro';
+import { story } from '../data/story.js';
+import { albums, order } from '../data/albums.js';
+import '../styles/story.css';
+import '../styles/pages.css';
+
+const fonts = 'https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;700&display=swap';
+const PRODUCERS = {
+  'kill-em-all': 'Paul Curcio',
+  'ride-the-lightning': 'Flemming Rasmussen',
+  'master-of-puppets': 'Flemming Rasmussen',
+  'and-justice-for-all': 'Flemming Rasmussen',
+  'black-album': 'Bob Rock',
+};
+const list = order.map((slug) => albums[slug]);
+---
+<Base
+  title="Epílogo · Metallica 1981–1991"
+  description="Fan page não oficial: o fim do filme. Dez anos, cinco discos e os fios que ligam tudo."
+  fonts={fonts}
+  theme="epilogo"
+>
+  <header class="page-nav">
+    <a href="/" class="page-nav__logo" aria-label="Voltar à linha do tempo">METALLICA</a>
+    <nav class="page-nav__links" aria-label="Navegação">
+      <a href="/black-album/">← 1991</a>
+      <a href="/fontes/">Fontes</a>
+    </nav>
+  </header>
+
+  <main>
+    <Story chapterId="epilogo" chapter={story.epilogo} skipTo="creditos" next={{ href: '#creditos', name: 'os créditos' }} />
+
+    <section class="credits" id="creditos" aria-labelledby="creditos-title">
+      <h2 class="credits__title" id="creditos-title">Créditos</h2>
+
+      {list.map((a) => (
+        <div class="credits__block">
+          <p class="credits__role">{a.year} · {a.name}</p>
+          <ul class="credits__names">
+            {a.members.map((m) => <li>{m.first} {m.last}<small>{m.role}</small></li>)}
+          </ul>
+          <p class="credits__prod">Produção · {PRODUCERS[a.slug]}</p>
+        </div>
+      ))}
+
+      <div class="credits__block credits__block--tribute">
+        <p class="credits__dedication">Para Cliff Burton</p>
+        <p class="credits__years">1962–1986</p>
+      </div>
+
+      <div class="credits__block">
+        <p class="credits__role">Sobre esta página</p>
+        <p class="credits__note">Fan page não oficial, feita como estudo de design e animação. Sem afiliação com o Metallica ou suas gravadoras. Todo o visual é original: nenhuma capa, foto, logo ou letra é reproduzida. A história foi contada só com fatos confirmados por mais de uma fonte, ou atribuídos a quem os contou.</p>
+      </div>
+
+      <nav class="credits__links" aria-label="Para onde ir">
+        <a href="/fontes/">Fontes da história</a>
+        <a href="/">Voltar ao começo</a>
+      </nav>
+    </section>
+  </main>
+</Base>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  import { initStory } from '../scripts/core/story.js';
+  import { arts } from '../scripts/story-art/epilogo.js';
+
+  gsap.registerPlugin(ScrollTrigger);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.body.classList.remove('is-loading');
+  initStory({ gsap, ScrollTrigger, reduce, theme: {} }, arts);
+
+  // os créditos sobem como no fim de um filme: cada bloco entra devagar
+  if (!reduce) {
+    gsap.utils.toArray('.credits__title, .credits__block, .credits__links').forEach((el) => {
+      gsap.from(el, { y: 60, autoAlpha: 0, duration: 1.2, ease: 'power2.out', scrollTrigger: { trigger: el, start: 'top 88%' } });
+    });
+  }
+  document.fonts?.ready.then(() => ScrollTrigger.refresh());
+</script>
