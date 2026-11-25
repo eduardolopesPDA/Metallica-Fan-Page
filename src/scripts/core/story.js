@@ -29,6 +29,15 @@ function splitWords(el) {
   });
 }
 
+/* a profundidade vai num <g> em volta do elemento: o transform CSS dela
+   sobrescreveria o atributo transform que a ilustração anima (skate, ônibus, cheque) */
+function depthWrap(d) {
+  if (!(d instanceof SVGElement) || d.tagName === 'svg') return d;
+  const g = document.createElementNS(d.namespaceURI, 'g');
+  d.before(g); g.appendChild(d);
+  return g;
+}
+
 const CAMERA = {
   in: p => `scale(${(1.16 - .16 * p).toFixed(4)})`,
   out: p => `scale(${(1 + .1 * p).toFixed(4)})`,
@@ -68,7 +77,7 @@ export function initStory(api, arts = {}) {
       el, i, art, artEl, card, cardText,
       words: text ? splitWords(text) : [],
       cam: CAMERA[el.dataset.cam] || null,
-      depth: artEl ? [...artEl.querySelectorAll('.d1, .d2, .d3')].map(d => ({ d, k: d.classList.contains('d3') ? 3 : d.classList.contains('d2') ? 2 : 1 })) : [],
+      depth: artEl ? [...artEl.querySelectorAll('.d1, .d2, .d3')].map(d => ({ d: depthWrap(d), k: d.classList.contains('d3') ? 3 : d.classList.contains('d2') ? 2 : 1 })) : [],
       still: el.classList.contains('scene--still'),
       shownCard: -1,
     };

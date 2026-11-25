@@ -262,7 +262,8 @@ const theme = {
     api.ticker((now, dt) => { drawBills(dt); drawCracks(now); drawShards(); });
     document.fonts.ready.then(makeBillSprite);
     // chuva de dinheiro ambiente, lenta, atrás do conteúdo
-    setInterval(() => { if (!document.hidden && bills.length < 12) spawnBill(api.rand(0, W), -40); }, 900);
+    setInterval(() => { const cap = document.body.classList.contains('story-on') ? (W < 700 ? 3 : 6) : 12;
+      if (!document.hidden && bills.length < cap) spawnBill(api.rand(0, W), -40); }, 900);
     setupScale();
     meterLive = meterChanger(api.$('#lars'));
     bassEgg(api.$('#jason'));
@@ -316,7 +317,7 @@ const theme = {
 
   storyCut(scene) {
     const side = Math.random() < .5 ? 0 : W;
-    crack(side, api.rand(H * .2, H * .8), { angle: side ? Math.PI : 0, rays: 2, len: api.rand(160, 300), width: 2, life: 9000 });
+    crack(side, api.rand(H * .2, H * .8), { angle: side ? Math.PI : 0, rays: 2, len: api.rand(160, 300) * Math.max(.5, Math.min(1, W / 900)), width: 2, life: 6000 });
     gavel(.35);
   },
 

@@ -105,3 +105,6 @@
 @keyframes stamp { to { opacity: .8; transform: translateY(-50%) rotate(-8deg) scale(1); } }
 [data-theme="justice"] .tracks .t { font-family: var(--font-display); font-weight: 700; letter-spacing: .06em; }
 @media (max-width: 640px) { [data-theme="justice"] .tracks li { grid-template-columns: 52px 1fr auto 44px; } [data-theme="justice"] .tracks li::after { display: none; } }
+
+/* filme: a legenda ganha um halo escuro para não brigar com as notas e as rachaduras */
+[data-theme="justice"] .scene__text { text-shadow: 0 0 14px #1b1e1d, 0 0 6px #1b1e1d, 0 0 2px #1b1e1d; }

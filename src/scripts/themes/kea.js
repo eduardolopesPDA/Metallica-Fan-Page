@@ -26,7 +26,7 @@ function jagged(x, y, ang, len, steps) {
   return pts;
 }
 function crack(x, y, power = .6) {
-  const n = Math.round(8 + power * 8), R = 70 + power * 230;
+  const n = Math.round(8 + power * 8), R = (70 + power * 230) * Math.max(.55, Math.min(1, W / 900));
   const rays = [];
   for (let i = 0; i < n; i++) {
     const ang = (i / n) * Math.PI * 2 + api.rand(-.2, .2);
@@ -85,11 +85,14 @@ function splat(x, y, power) {
   api.burst(x, y, 18, { color: RED, kind: 'dot', size: 3, speed: 9, gravity: .35, decay: .025 });
 }
 function drawSplats(now, dt) {
+  const storyOn = document.body.classList.contains('story-on');
   const ctx = api.layer('back').ctx;
   for (let i = splats.length - 1; i >= 0; i--) {
     const s = splats[i];
     const t = (now - s.born) / s.life;
     if (t >= 1) { splats.splice(i, 1); continue; }
+    // dentro do filme o sangue da abertura desbota rápido (pula para os últimos 0,9 s)
+    if (storyOn && s.born + s.life - now > 900) { s.life = 3000; s.born = now - 2100; continue; }
     const a = t < .7 ? .92 : .92 * (1 - (t - .7) / .3);
     ctx.fillStyle = `rgba(${RED},${a})`;
     for (const b of s.blobs) { ctx.beginPath(); ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2); ctx.fill(); }
