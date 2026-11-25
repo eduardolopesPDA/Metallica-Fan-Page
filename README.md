@@ -31,3 +31,7 @@ Todas as páginas compartilham o mesmo esqueleto (abertura, hero, quatro integra
 ## Limites
 
 Todo o visual é original. Nenhuma capa, foto, letra ou logo oficial é reproduzido, e os instrumentos são desenhos genéricos, sem marcas. A narração é em terceira pessoa e não inventa falas: só entram fatos confirmados por mais de uma fonte, ou atribuídos a quem os contou ("segundo..."). Histórias populares sem fonte sólida ficaram de fora. A página Fontes lista as principais referências e explica como cada fato foi tratado.
+
+## Para construir um site parecido
+
+A pasta [`kit/`](kit/) reúne a spec modelo, os prompts e as skills que nasceram deste projeto, em versão genérica, para quem quiser contar outra história em capítulos com o mesmo formato, seja projeto pessoal, freelance ou institucional.
