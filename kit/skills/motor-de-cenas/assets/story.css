@@ -1,0 +1,148 @@
+/* =========================================================
+   "A HISTÓRIA" — palco de cinema comum a todos os temas.
+   Usa os tokens do tema (--accent, --ink, --font-*).
+   ========================================================= */
+.story { position: relative; height: calc(var(--scenes, 10) * 130vh + 100vh); }
+.story__stage {
+  position: sticky; top: 0; height: 100vh; overflow: hidden;
+  background: radial-gradient(90% 80% at 50% 50%, transparent 40%, color-mix(in srgb, var(--bg) 75%, transparent) 100%);
+}
+.scene { position: absolute; inset: 0; display: grid; place-items: center; padding: 12vh var(--gutter); opacity: 0; visibility: hidden; will-change: opacity; }
+
+/* abertura do capítulo */
+.scene--open { align-content: center; justify-items: center; text-align: center; gap: 18px; opacity: 1; visibility: visible; }
+.story__label { margin: 0; font-family: var(--font-mono); font-size: 13px; letter-spacing: .35em; text-transform: uppercase; color: var(--accent); }
+.story__title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: clamp(48px, 9vw, 140px); line-height: .9; color: var(--ink-strong); }
+.story__prev { max-width: 640px; margin: 18px 0 0; font-size: clamp(16px, 1.6vw, 20px); color: var(--ink); }
+.story__prev span { display: block; margin-bottom: 8px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--muted); }
+.story__actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 22px; margin-top: 18px; }
+.story__play {
+  display: inline-flex; align-items: center; gap: 10px; padding: 14px 24px; cursor: pointer;
+  border: 1px solid var(--accent); background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--ink-strong);
+  font: 600 12px/1 var(--font-body); letter-spacing: .2em; text-transform: uppercase; transition: background .3s, color .3s;
+}
+.story__play svg { width: 14px; fill: currentColor; }
+.story__play:hover, .story__play:focus-visible { background: var(--accent); color: var(--bg); }
+.story__skip { font-family: var(--font-mono); font-size: 12px; letter-spacing: .15em; color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 4px; }
+.story__skip:hover, .story__skip:focus-visible { color: var(--ink-strong); border-color: var(--accent); }
+
+/* ilustração + cartela + legenda */
+.scene__art { position: absolute; inset: 14vh 6vw 24vh; display: grid; place-items: center; transform-origin: 50% 55%; will-change: transform; }
+.scene__art > svg { width: 100%; height: 100%; max-width: 980px; overflow: visible; }
+.scene__art .d1, .scene__art .d2, .scene__art .d3 { transform-box: view-box; }
+.scene__card {
+  position: absolute; left: var(--gutter); top: calc(9vh + 26px); margin: 0; padding-left: 14px; border-left: 2px solid var(--accent); min-height: 1.2em;
+  font-family: var(--font-mono); font-size: clamp(11px, 1.1vw, 14px); letter-spacing: .25em; text-transform: uppercase; color: var(--ink-strong);
+}
+.scene__card.is-typing::after { content: "▌"; margin-left: 2px; color: var(--accent); animation: caret .6s steps(1) infinite; }
+@keyframes caret { 50% { opacity: 0; } }
+.scene__text {
+  position: absolute; left: 50%; bottom: calc(9vh + 30px); transform: translateX(-50%); width: min(900px, calc(100% - 2 * var(--gutter))); margin: 0;
+  text-align: center; font-family: var(--font-body); font-size: clamp(17px, 2vw, 26px); line-height: 1.45; color: var(--ink-strong);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, .7);
+}
+.scene__text .w { display: inline-block; opacity: .06; filter: blur(5px); transform: translateY(.35em); transition: opacity .55s ease, filter .55s ease, transform .55s cubic-bezier(.2, .7, .2, 1); }
+.scene__text .w.on { opacity: 1; filter: none; transform: none; }
+.scene--hook { align-content: center; justify-items: center; gap: 28px; }
+.scene__text--hook { position: static; transform: none; font-family: var(--font-display); font-size: clamp(28px, 4vw, 56px); line-height: 1.1; }
+.story__next { font-family: var(--font-mono); font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: var(--accent); text-decoration: none; border: 1px solid var(--accent); padding: 14px 22px; }
+.story__next:hover, .story__next:focus-visible { background: var(--accent); color: var(--bg); }
+.story__next--quiet { border: 0; color: var(--muted); font-size: 18px; letter-spacing: .5em; }
+.scene--still { background: #000; }
+.scene--still .scene__text, .scene--still .scene__card { color: #f2f2f2; text-shadow: none; }
+.scene--still .scene__card { border-color: #f2f2f2; }
+
+/* progresso das cenas (pontinhos à direita) */
+.story__progress { position: absolute; right: 22px; top: 50%; transform: translateY(-50%); display: grid; gap: 8px; z-index: 2; }
+.story__progress i { width: 6px; height: 6px; border-radius: 50%; background: var(--line); transition: background .3s, transform .3s; }
+.story__progress i.on { background: var(--accent); }
+.story__progress i.on:last-of-type, .story__progress i.on + i:not(.on) { transform: scale(1); }
+
+/* faixas de cinema, mini-mapa e controle: só enquanto a história está na tela */
+.story__bars i { position: fixed; left: 0; right: 0; height: 9vh; background: #000; z-index: 46; pointer-events: none; transition: transform .7s cubic-bezier(.7, 0, .2, 1); }
+.story__bars i:first-child { top: 0; transform: translateY(-100%); }
+.story__bars i:last-child { bottom: 0; transform: translateY(100%); }
+body.story-on .story__bars i { transform: none; }
+body.story-on .rail { opacity: 0; } /* .rail = medidor lateral da página, se houver */
+.minimap {
+  position: fixed; right: var(--gutter); top: calc(9vh + 18px); z-index: 47; width: 190px; padding: 6px;
+  border: 1px solid var(--line); background: color-mix(in srgb, var(--bg) 70%, transparent);
+  opacity: 0; transform: translateY(-10px); transition: opacity .5s, transform .5s; pointer-events: none;
+}
+body.story-on .minimap { opacity: 1; transform: none; }
+.minimap svg { display: block; width: 100%; height: auto; }
+.story__control { position: fixed; left: 50%; bottom: 0; height: 9vh; z-index: 48; display: grid; place-items: center; transform: translate(-50%, 100%); transition: transform .7s cubic-bezier(.7, 0, .2, 1); }
+body.story-on .story__control { transform: translate(-50%, 0); }
+.story__toggle {
+  display: inline-flex; align-items: center; gap: 10px; padding: 9px 16px; cursor: pointer; border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, .3); background: rgba(255, 255, 255, .06); color: #f2f2f2;
+  font: 500 11px/1 var(--font-body); letter-spacing: .2em; text-transform: uppercase;
+}
+.story__toggle svg { width: 13px; fill: currentColor; }
+.story__toggle .i-pause, .story__toggle.is-playing .i-play { display: none; }
+.story__toggle.is-playing .i-pause { display: inline; }
+.story__toggle:hover, .story__toggle:focus-visible, .story__toggle.is-playing { border-color: var(--accent); }
+
+/* mapa */
+.map { width: 100%; height: 100%; }
+.map__grid { stroke: var(--line); stroke-width: .6; opacity: .5; }
+.map__land { fill: color-mix(in srgb, var(--ink) 7%, transparent); stroke: var(--line); stroke-width: 1.2; }
+.map__done { fill: none; stroke: var(--muted); stroke-width: 2; stroke-dasharray: 4 6; opacity: .7; }
+.map__current { fill: none; stroke: var(--accent); stroke-width: 3; stroke-linecap: round; filter: drop-shadow(0 0 6px var(--accent)); }
+.map__dot { fill: var(--muted); }
+.map__dot.is-lit { fill: var(--accent); filter: drop-shadow(0 0 6px var(--accent)); }
+.map__label { font-family: var(--font-mono); font-size: 15px; letter-spacing: .08em; fill: var(--ink); }
+.map--mini .map__current { stroke-width: 6; }
+.map--mini .map__done { stroke-width: 4; }
+
+/* traços das ilustrações (cada tema herda as cores pelos tokens) */
+.scene__art svg * { vector-effect: non-scaling-stroke; }
+/* linhas que se desenham (stroke-dasharray inline) medem o traço no espaço do desenho; sem isso o traço para antes do fim quando a arte é ampliada */
+.scene__art svg [style*="stroke-dasharray"], .minimap svg [style*="stroke-dasharray"] { vector-effect: none; }
+.a-line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.a-fillsoft { fill: color-mix(in srgb, var(--accent) 10%, transparent); }
+.a-soft { fill: none; stroke: var(--muted); stroke-width: 1.2; opacity: .7; }
+.a-dark { fill: color-mix(in srgb, var(--bg) 85%, #000); }
+.a-ghost { fill: none; stroke: var(--ink-strong); stroke-width: 1.4; stroke-dasharray: 6 6; opacity: .8; }
+.a-tag { font-family: var(--font-mono); font-size: 16px; letter-spacing: .3em; fill: var(--ink-strong); }
+.a-big { font-family: var(--font-display); font-size: 64px; fill: var(--ink-strong); }
+.a-glow { fill: #fff; filter: drop-shadow(0 0 8px var(--accent)); }
+.a-cone { fill: color-mix(in srgb, var(--accent) 12%, transparent); }
+.a-snow { fill: #fff; opacity: .8; }
+.a-string { stroke: #e2eaf1; stroke-width: .8; }
+.a-wave { fill: none; stroke: var(--accent); stroke-width: 2.5; filter: drop-shadow(0 0 8px var(--accent)); }
+.a-text { stroke: var(--muted); stroke-width: 3; stroke-linecap: round; opacity: .55; }
+.a-hl { stroke: var(--ink-strong); stroke-width: 3; stroke-linecap: round; }
+.a-under { fill: none; stroke: var(--accent); stroke-width: 3; filter: drop-shadow(0 0 6px var(--accent)); }
+.a-title { font-family: var(--font-display); font-size: 54px; fill: var(--ink-strong); opacity: 0; }
+.a-screen { fill: color-mix(in srgb, var(--accent) 35%, transparent); stroke: var(--accent); stroke-width: 1.5; filter: drop-shadow(0 0 14px var(--accent)); }
+.a-fog { fill: color-mix(in srgb, var(--accent) 70%, #6fd); opacity: 0; }
+.a-grille { fill: color-mix(in srgb, var(--bg) 70%, #000); stroke: var(--muted); stroke-width: .8; }
+.a-knob { fill: var(--ink-strong); }
+.a-hand { stroke: var(--ink-strong); stroke-width: 3; stroke-linecap: round; }
+.a-min { stroke-width: 2; }
+.a-bolt { fill: transparent; stroke: #fff; stroke-width: 3; stroke-linejoin: round; filter: drop-shadow(0 0 14px var(--accent)) drop-shadow(0 0 40px var(--accent)); transition: fill .4s; }
+.a-bolt.is-full { fill: #e6f6ff; }
+.a-sign { fill: none; stroke: var(--ink-strong); stroke-width: 2.5; stroke-linecap: round; }
+.a-ink { fill: var(--ink-strong); }
+.a-accentfill { fill: var(--accent); }
+.a-dot { fill: var(--accent); filter: drop-shadow(0 0 6px var(--accent)); }
+
+@media (max-width: 700px) {
+  .story { height: calc(var(--scenes, 10) * 115vh + 100vh); }
+  .scene__art { inset: 16vh 4vw 32vh; }
+  .scene__text { font-size: 17px; bottom: calc(9vh + 18px); }
+  .minimap, .story__progress { display: none; }
+  .story__toggle span { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .scene__text .w { opacity: 1; filter: none; transform: none; transition: none; }
+  .story__bars i, .story__control { transition: none; }
+}
+
+/* corte de filme: um clarão rápido e uma linha de cintilação */
+.story__stage::after { content: ""; position: absolute; inset: 0; pointer-events: none; opacity: 0; background: #fff; mix-blend-mode: overlay; }
+.story__stage.is-cut::after { animation: filmcut .4s steps(4) 1; }
+@keyframes filmcut { 0% { opacity: .35; } 50% { opacity: .08; } 75% { opacity: .2; } 100% { opacity: 0; } }
+body.story-on .rail { opacity: 0 !important; visibility: hidden !important; }
+.a-light { fill: color-mix(in srgb, var(--accent) 35%, #fff4d6); opacity: .9; }
