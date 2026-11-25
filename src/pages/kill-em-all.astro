@@ -9,6 +9,7 @@ const reel = (cx) => `<g class="reel"><circle cx="${cx}" cy="70" r="22" fill="#e
 <Album
   album={album}
   fonts={fonts}
+  withStory
   hint="clique para martelar · segure para carregar o golpe"
   tracklist={{ title: 'Lado A / Lado B', sides: true }}
 >
@@ -56,5 +57,6 @@ const reel = (cx) => `<g class="reel"><circle cx="${cx}" cy="70" r="22" fill="#e
 <script>
   import { boot } from '../scripts/core/page.js';
   import theme from '../scripts/themes/kea.js';
-  boot(theme);
+  import { arts } from '../scripts/story-art/kea.js';
+  boot(theme, { storyArts: arts });
 </script>

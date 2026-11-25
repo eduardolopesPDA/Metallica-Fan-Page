@@ -5,6 +5,8 @@
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { audio } from './core/audio.js';
+import { initStory } from './core/story.js';
+import { arts as prologueArts } from './story-art/prologo.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -34,6 +36,9 @@ export function initHome() {
     .from('.intro__text > *', { y: 30, autoAlpha: 0, stagger: .12, duration: .9, ease: 'expo.out' }, reduce ? 0 : .8)
     .from('.home-nav', { y: -30, autoAlpha: 0, duration: .8, ease: 'expo.out' }, .9);
   root.classList.remove('is-loading');
+
+  /* ---------- prólogo: a primeira parte do filme, em preto e branco ---------- */
+  initStory({ gsap, ScrollTrigger, reduce, theme: {} }, prologueArts);
 
   /* ---------- linha do tempo ---------- */
   const track = document.querySelector('.timeline__track');
@@ -69,7 +74,8 @@ export function initHome() {
   }
   // a intro fica preta; as cores entram junto com a linha do tempo
   ScrollTrigger.create({ trigger: '.timeline', start: 'top 60%', onEnter: colorize, onLeaveBack: () => paint(INTRO) });
-  colorize();
+  // só pinta as cores dos discos se a linha do tempo já estiver na tela (o prólogo é em preto e branco)
+  if (document.querySelector('.timeline').getBoundingClientRect().top < innerHeight * .6) colorize();
   document.fonts?.ready.then(() => ScrollTrigger.refresh());
 
   /* ---------- entrar num disco: o disco para e a agulha levanta ---------- */

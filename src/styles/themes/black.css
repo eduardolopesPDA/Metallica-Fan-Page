@@ -95,3 +95,14 @@
   [data-theme="black"] .strip label { font-size: 9px; letter-spacing: .04em; }
   [data-theme="black"] .vu i { width: 22px; }
 }
+
+/* botão da lanterna: rótulo curto só no celular */
+[data-theme="black"] .lights__short { display: none; }
+@media (max-width: 640px) {
+  [data-theme="black"] .lights__long { display: none; }
+  [data-theme="black"] .lights__short { display: inline; }
+  [data-theme="black"] .nav__logo { font-size: 16px; letter-spacing: .1em; }
+  [data-theme="black"] .mixer { gap: 6px; padding: 22px 10px; }
+  [data-theme="black"] .strip label { font-size: 9px; letter-spacing: .04em; }
+  [data-theme="black"] .vu i { width: 22px; }
+}

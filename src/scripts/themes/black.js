@@ -13,9 +13,12 @@ const dust = [];
 function paintLight() {
   darkness.style.setProperty('--lx', light.x.toFixed(1) + 'px');
   darkness.style.setProperty('--ly', light.y.toFixed(1) + 'px');
-  darkness.style.setProperty('--lr', (light.r + light.boost).toFixed(1) + 'px');
+  darkness.style.setProperty('--lr', (light.r + light.boost + (light.sb || 0)).toFixed(1) + 'px');
 }
 function stepLight(now) {
+  const storyOn = document.body.classList.contains('story-on');
+  light.sb = (light.sb || 0) + ((storyOn ? Math.max(W, H) * .7 : 0) - (light.sb || 0)) * .05;
+  if (storyOn) { light.tx = W / 2; light.ty = H * .45; lastMove = now; }
   const idle = now - lastMove > (api.fine ? 3200 : 2600); // no toque, a luz fica onde você tocou por um tempo
   if (idle && !api.reduce) { // varre a tela sozinha
     light.tx = W / 2 + Math.sin(now / 2600) * W * .32;
@@ -205,6 +208,8 @@ const theme = {
     tl.from('.hero__line', { autoAlpha: 0, y: 40, duration: 1.6, stagger: .3, ease: 'power3.out' }, .2)
       .fromTo(light, { r: 0 }, { r: light.base, duration: 1.8, ease: 'power2.out' }, 0);
   },
+
+  storyCut() { pulse(240, 1); },
 
   onClick(x, y) {
     lastMove = performance.now();

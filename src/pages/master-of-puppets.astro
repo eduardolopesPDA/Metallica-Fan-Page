@@ -10,6 +10,7 @@ const xs = [40, 80, 120, 160, 200, 240, 280, 320];
 <Album
   album={album}
   fonts={fonts}
+  withStory
   hint="agarre uma corda e puxe · clique para sacudir o palco"
   notes={{ cliff: '✝ 10.02.1962 — 27.09.1986' }}
   tracklist={{ title: 'Programa', numbering: 'roman' }}
@@ -76,5 +77,6 @@ const xs = [40, 80, 120, 160, 200, 240, 280, 320];
 <script>
   import { boot } from '../scripts/core/page.js';
   import theme from '../scripts/themes/mop.js';
-  boot(theme);
+  import { arts } from '../scripts/story-art/mop.js';
+  boot(theme, { storyArts: arts });
 </script>

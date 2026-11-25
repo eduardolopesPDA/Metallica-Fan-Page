@@ -96,6 +96,8 @@
 
 .home-footer { padding: 60px var(--gutter); background: #000; color: rgba(242, 242, 242, .6); text-align: center; font-size: 13px; }
 .home-footer p { max-width: 640px; margin: 0 auto; }
+.home-footer__links { margin-top: 18px !important; letter-spacing: .2em; text-transform: uppercase; font-size: 12px; }
+.home-footer__links a { color: #fff; }
 
 /* celular: estações empilhadas, sem rolagem horizontal */
 @media (max-width: 800px) {

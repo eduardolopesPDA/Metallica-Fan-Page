@@ -4,9 +4,13 @@
 import Base from './Base.astro';
 import Member from '../components/Member.astro';
 import Tracklist from '../components/Tracklist.astro';
+import Story from '../components/Story.astro';
+import { story } from '../data/story.js';
+import '../styles/story.css';
 import { totalTime, neighbors } from '../data/albums.js';
 
-const { album, fonts, notes = {}, tracklist = {}, hint = 'ou clique em qualquer lugar' } = Astro.props;
+const { album, fonts, notes = {}, tracklist = {}, hint = 'ou clique em qualquer lugar', withStory = false } = Astro.props;
+const chapter = withStory ? story[album.slug] : null;
 const { prev, next } = neighbors(album.slug);
 const meta = [...album.meta, ['Duração', totalTime(album.tracks)]];
 ---
@@ -68,6 +72,8 @@ const meta = [...album.meta, ['Duração', totalTime(album.tracks)]];
       <div class="scroll-cue" aria-hidden="true"><span></span></div>
     </section>
 
+    {chapter && <Story chapterId={album.slug} chapter={chapter} skipTo={album.members[0].id} next={next ? { href: `/${next.slug}/`, name: next.name, year: next.year } : { href: '/epilogo/', name: 'Epílogo', year: 'Epílogo' }} />}
+
     <div class="marquee" aria-label="Faixas do álbum">
       <div class="marquee__track">
         {album.tracks.map(([t]) => <><span>{t}</span><i aria-hidden="true"></i></>)}
@@ -87,9 +93,9 @@ const meta = [...album.meta, ['Duração', totalTime(album.tracks)]];
       <nav class="album-nav" aria-label="Outros álbuns">
         {prev ? <a class="album-nav__prev" href={`/${prev.slug}/`}><small>← {prev.year}</small>{prev.name}</a> : <span />}
         <a class="album-nav__home" href="/">Linha do tempo</a>
-        {next ? <a class="album-nav__next" href={`/${next.slug}/`}><small>{next.year} →</small>{next.name}</a> : <span />}
+        {next ? <a class="album-nav__next" href={`/${next.slug}/`}><small>{next.year} →</small>{next.name}</a> : <a class="album-nav__next" href="/epilogo/"><small>1991 →</small>Epílogo</a>}
       </nav>
-      <p class="footer__note">Fan page não oficial, feita como estudo de design e animação. Sem afiliação com o Metallica ou suas gravadoras. Todo o visual é original.</p>
+      <p class="footer__note">Fan page não oficial, feita como estudo de design e animação. Sem afiliação com o Metallica ou suas gravadoras. Todo o visual é original. <a href="/fontes/">Fontes da história</a>.</p>
     </footer>
   </main>
 </Base>

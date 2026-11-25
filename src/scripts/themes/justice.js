@@ -314,6 +314,12 @@ const theme = {
     crackSound();
   },
 
+  storyCut(scene) {
+    const side = Math.random() < .5 ? 0 : W;
+    crack(side, api.rand(H * .2, H * .8), { angle: side ? Math.PI : 0, rays: 2, len: api.rand(160, 300), width: 2, life: 9000 });
+    gavel(.35);
+  },
+
   onClick(x, y) {
     crack(x, y, { width: 2.2 });
     shatter(x, y);

@@ -14,6 +14,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { initEngine, reduce, fine, rand, ticker, onResize, size, layer, spawn, burst } from './engine.js';
 import { audio } from './audio.js';
 import { buildInstruments } from './instruments.js';
+import { initStory } from './story.js';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -45,7 +46,7 @@ export function shake(power = 1) {
   });
 }
 
-export function boot(theme) {
+export function boot(theme, opts = {}) {
   initEngine();
   $$('[data-split]').forEach(splitChars);
   buildInstruments();
@@ -55,6 +56,7 @@ export function boot(theme) {
   setupSound(theme, api);
   theme.init?.(api);
   setupMembers(theme, api);
+  initStory(api, opts.storyArts);
   setupNav();
   setupRail(theme);
   setupTracklist(theme, api);

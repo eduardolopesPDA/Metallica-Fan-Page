@@ -8,6 +8,7 @@ const fonts = 'https://fonts.googleapis.com/css2?family=Archivo+Black&family=Int
 <Album
   album={album}
   fonts={fonts}
+  withStory
   hint="mova a lanterna · clique para um pulso de luz"
   tracklist={{ title: 'Faixas' }}
 >
@@ -39,5 +40,6 @@ const fonts = 'https://fonts.googleapis.com/css2?family=Archivo+Black&family=Int
 <script>
   import { boot } from '../scripts/core/page.js';
   import theme from '../scripts/themes/black.js';
-  boot(theme);
+  import { arts } from '../scripts/story-art/black.js';
+  boot(theme, { storyArts: arts });
 </script>

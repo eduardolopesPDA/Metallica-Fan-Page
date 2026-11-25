@@ -260,6 +260,14 @@ const theme = {
     puppets.slice(0, 2).forEach((p, i) => { p.omega = (i ? 1 : -1) * 1.6; });
   },
 
+  storyCut(scene) {
+    let cur = document.querySelector('.story-curtain');
+    if (!cur) { document.body.insertAdjacentHTML('beforeend', '<div class="story-curtain" aria-hidden="true"><i></i><i></i></div>'); cur = document.querySelector('.story-curtain'); }
+    if (scene.classList.contains('scene--still')) return;
+    cur.classList.remove('is-on'); void cur.offsetWidth; cur.classList.add('is-on');
+    pluck(api.rand(120, 220), .2);
+  },
+
   onPointerDown(e) {
     let best = null, bd = 16;
     for (const p of puppets) {

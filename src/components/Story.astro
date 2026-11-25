@@ -1,0 +1,63 @@
+---
+/* "A história": um capítulo do filme.
+   Todas as cenas ficam empilhadas num único palco preso na tela;
+   o scroll (ou a rolagem automática) faz a fusão de uma cena para a outra. */
+const { chapterId, chapter, skipTo, next } = Astro.props;
+const total = chapter.scenes.length + 2; // abertura + cenas + gancho
+const CAMS = ['in', 'left', 'up', 'right', 'out'];
+---
+<section class="story" id="historia" data-chapter={chapterId} style={`--scenes:${total}`} aria-labelledby="historia-title">
+  <div class="story__stage">
+    <header class="scene scene--open" data-index="0">
+      <p class="story__label">{chapter.label} · {chapter.years}</p>
+      <h2 class="story__title" id="historia-title">{chapter.title}</h2>
+      {chapter.previously && (
+        <p class="story__prev"><span>Anteriormente</span>{chapter.previously}</p>
+      )}
+      <div class="story__actions">
+        <button class="story__play" type="button" data-play>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4 L20 12 L7 20 Z" /></svg>
+          Assistir como filme
+        </button>
+        <a class="story__skip" href={`#${skipTo}`}>Pular a história ↓</a>
+      </div>
+    </header>
+
+    {chapter.scenes.map((s, i) => (
+      <article
+        class:list={['scene', { 'scene--still': s.still }]}
+        data-index={i + 1}
+        data-art={s.art}
+        data-cam={s.still ? 'none' : CAMS[i % CAMS.length]}
+        data-map-route={s.map?.route}
+        data-silence={s.silence ? '' : undefined}
+        data-strike={s.strike ? '' : undefined}
+      >
+        <div class="scene__art" aria-hidden="true"></div>
+        <p class="scene__card">{s.card}</p>
+        <p class="scene__text">{s.text}</p>
+      </article>
+    ))}
+
+    <article class:list={['scene scene--hook', { 'scene--quiet': !chapter.hook }]} data-index={total - 1}>
+      {chapter.hook && <p class="scene__text scene__text--hook">{chapter.hook}</p>}
+      {next && (
+        chapter.hook
+          ? <a class="story__next" href={next.href}>Próximo · {next.name} →</a>
+          : <a class="story__next story__next--quiet" href={next.href}>{next.year}</a>
+      )}
+    </article>
+
+    <div class="story__progress" aria-hidden="true">{Array.from({ length: total }).map(() => <i></i>)}</div>
+  </div>
+
+  <div class="story__bars" aria-hidden="true"><i></i><i></i></div>
+  <div class="minimap" aria-hidden="true"></div>
+  <div class="story__control">
+    <button class="story__toggle" type="button" data-play aria-pressed="false">
+      <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4 L20 12 L7 20 Z" /></svg>
+      <svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4 H10 V20 H6 Z M14 4 H18 V20 H14 Z" /></svg>
+      <span>Rolagem automática</span>
+    </button>
+  </div>
+</section>

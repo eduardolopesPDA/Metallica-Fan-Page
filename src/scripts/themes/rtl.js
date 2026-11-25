@@ -11,6 +11,7 @@ let boltRGB = '120,190,255', midRGB = '190,230,255'; // vira vermelho no easter 
 const bolts = [];
 let drops = [];
 let charge = 0, charging = false;
+let paused = false; // a tempestade silencia em algumas cenas da história
 
 /* ---------- geometria ---------- */
 function subdivide(x1, y1, x2, y2, disp, iterations = 7) {
@@ -196,7 +197,7 @@ const theme = {
   init(a) {
     api = a;
     api.onResize((w, h) => { W = w; H = h; drops = Array.from({ length: Math.min(Math.round((w * h) / 6500), 360) }, makeDrop); });
-    api.ticker(now => { drawBolts(now); if (!api.reduce) drawRain(); });
+    api.ticker(now => { drawBolts(now); if (!api.reduce && !paused) drawRain(); });
     const $ = api.$;
     arcs($('#james')); arcs($('#cliff')); scope($('#kirk'));
     beat = drumBeat($('#lars'));
@@ -223,7 +224,7 @@ const theme = {
     setTimeout(() => strike(W * .84, H * .62, { width: 3, intensity: .6, thunder: false }), 260);
     if (api.reduce) return;
     const next = () => setTimeout(() => {
-      if (!document.hidden) {
+      if (!document.hidden && !paused) {
         const far = Math.random() < .6;
         strike(api.rand(W * .05, W * .95), api.rand(H * .25, H * (far ? .55 : .9)), {
           width: far ? 1.6 : 3, branches: far ? 1 : 2, intensity: far ? .35 : .7, dur: far ? 450 : 650,
@@ -239,6 +240,21 @@ const theme = {
       const c = chars[Math.floor(Math.random() * chars.length)];
       if (c) api.gsap.fromTo(c, { y: 0 }, { y: api.rand(-14, -4), duration: .06, repeat: 3, yoyo: true, ease: 'none' });
     }, 900);
+  },
+
+  /* A HISTÓRIA: cada corte de cena é um raio distante; na cena do roubo
+     a tempestade para (sem chuva, sem raios) e volta com tudo quando o disco sai */
+  storyCut(scene) {
+    if (paused || scene.dataset.silence !== undefined) return;
+    strike(api.rand(W * .1, W * .9), api.rand(H * .15, H * .4), { width: 1.8, branches: 1, intensity: .45, dur: 500, delay: 600 });
+  },
+  onStoryScene(scene, active) {
+    if (scene.dataset.silence !== undefined) paused = active;
+    if (scene.dataset.strike !== undefined && active) {
+      strike(W / 2, H * .55, { x1: W / 2, y1: -40, width: 6, branches: 3, intensity: 1, dur: 900, shake: 1.4, delay: 30 });
+      setTimeout(() => strike(W * .2, H * .7, { width: 3, intensity: .6, thunder: false }), 160);
+      setTimeout(() => strike(W * .8, H * .65, { width: 3, intensity: .6, thunder: false }), 280);
+    }
   },
 
   onClick(x, y) { strike(x, y, { width: 3.4, branches: 2, intensity: .9, delay: 30, shake: .8 }); },

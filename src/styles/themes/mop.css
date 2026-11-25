@@ -114,3 +114,12 @@
   [data-theme="mop"] .marionette { max-width: none; }
 }
 @media (prefers-reduced-motion: reduce) { [data-theme="mop"] .show__curtain { display: none; } }
+
+/* história: cortina que fecha e abre a cada corte de cena */
+.story-curtain { position: fixed; inset: 9vh 0; z-index: 45; pointer-events: none; }
+.story-curtain i { position: absolute; top: 0; bottom: 0; width: 51%; background: repeating-linear-gradient(90deg, #4a0707 0 18px, #7a1010 34px, #9c1a17 44px, #6a0b0b 60px, #3d0505 74px); transform: scaleX(0); }
+.story-curtain i:first-child { left: 0; transform-origin: left; }
+.story-curtain i:last-child { right: 0; transform-origin: right; }
+.story-curtain.is-on i { animation: curtain-cut 1s cubic-bezier(.7, 0, .3, 1) 1; }
+@keyframes curtain-cut { 0% { transform: scaleX(0); } 40%, 55% { transform: scaleX(1); } 100% { transform: scaleX(0); } }
+body.story-on .control-bar { opacity: 0; transition: opacity .5s; }

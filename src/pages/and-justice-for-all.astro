@@ -8,6 +8,7 @@ const fonts = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&
 <Album
   album={album}
   fonts={fonts}
+  withStory
   hint="clique para rachar a tela"
   tracklist={{ title: 'Pauta', numbering: 'docket' }}
 >
@@ -65,5 +66,6 @@ const fonts = 'https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&
 <script>
   import { boot } from '../scripts/core/page.js';
   import theme from '../scripts/themes/justice.js';
-  boot(theme);
+  import { arts } from '../scripts/story-art/justice.js';
+  boot(theme, { storyArts: arts });
 </script>

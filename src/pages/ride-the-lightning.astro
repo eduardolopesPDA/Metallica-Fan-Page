@@ -11,6 +11,7 @@ const fonts = 'https://fonts.googleapis.com/css2?family=Metal+Mania&family=Oswal
   hint="ou clique em qualquer lugar para invocar um raio"
   notes={{ cliff: '✝ 1962 — 1986 · Para sempre na formação' }}
   tracklist={{ title: 'Lado A <span>/</span> Lado B' }}
+  withStory
 >
   <Fragment slot="bg">
     <div class="sky-glow"></div>
@@ -42,5 +43,6 @@ const fonts = 'https://fonts.googleapis.com/css2?family=Metal+Mania&family=Oswal
 <script>
   import { boot } from '../scripts/core/page.js';
   import theme from '../scripts/themes/rtl.js';
-  boot(theme);
+  import { arts } from '../scripts/story-art/rtl.js';
+  boot(theme, { storyArts: arts });
 </script>

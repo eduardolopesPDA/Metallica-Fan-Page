@@ -225,6 +225,11 @@ const theme = {
     kick();
   },
 
+  storyCut(scene) {
+    if (scene.classList.contains('scene--hook')) return;
+    crack(api.rand(W * .15, W * .85), api.rand(H * .2, H * .7), .3);
+  },
+
   onHoldStart(x, y) { holding = { x, y, t: performance.now() }; },
   onHoldEnd() { holding = null; },
   onPointerMove(e) { if (holding) { holding.x = e.clientX; holding.y = e.clientY; } },

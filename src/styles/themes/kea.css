@@ -142,3 +142,11 @@
   [data-theme="kea"] .tracklist__groups { padding: 22px 14px; }
   [data-theme="kea"] .tracks .t { font-size: 13px; }
 }
+
+/* história: traço de nanquim no papel */
+[data-theme="kea"] .scene__art .a-line, [data-theme="kea"] .scene__art .a-hand { stroke: var(--ink-strong); }
+[data-theme="kea"] .scene__art .a-fillsoft { fill: rgba(179, 18, 27, .08); }
+[data-theme="kea"] .scene__art .a-dark { fill: #2a2520; }
+[data-theme="kea"] .scene__art .a-under, [data-theme="kea"] .scene__art .a-wave { stroke: var(--accent); filter: none; }
+[data-theme="kea"] .scene__text { text-shadow: none; }
+[data-theme="kea"] .story__stage { background: radial-gradient(90% 80% at 50% 50%, transparent 50%, rgba(60, 45, 25, .25) 100%); }
